@@ -1,0 +1,371 @@
+body{
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    background-color:#E0E5EC;
+    font-family: 'Oswald', sans-serif;
+}
+
+.links{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+::-webkit-scrollbar{
+    width: 1%;
+}
+
+::-webkit-scrollbar-track{
+    background-color: #E0E5EC;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #000;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    height: 10px;
+}
+
+.header .navbar{
+    border: 0px solid #eee;
+    margin: 2% 10%;
+}
+
+.header .navbar .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    text-align: center;
+}
+
+.header .grid .navitems{
+    list-style-type: none;
+    font-family: 'Oswald', sans-serif;
+}
+
+.header .grid .navmain{
+    font-size: 200%;
+    margin-top: -5%;
+}
+
+.header .headerline{
+    text-align: center;
+    width: 80%;
+}
+
+.footer .footerline{
+    text-align: center;
+    width: 40%;
+}
+
+.footer .content{
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+}
+
+.footer .content img{
+    width: 2%;
+}
+
+.home .contentheader img{
+    width: 6%;
+}
+
+.loader img{
+    width: 5%;
+    position: absolute;
+    top: 48%;
+    left: 48%;  
+}
+
+.home{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.home .content{
+    text-align: left;
+    margin-left: 20%;
+    margin-top: -5%;
+}
+
+.home .content .contentheader{
+    font-family: 'Oswald', sans-serif;
+    font-size: 250%;
+}
+
+.home .content .contentbody{
+    font-family: 'EB Garamond', serif;
+    font-weight: 500;
+    font-size: 150%;
+    margin-top: -5%;
+    width: 75%;
+}
+
+.home .image img{
+    border-radius: 10px;
+    width: 90%;
+    height: 90%;
+    margin-right: 10%;
+    margin-top: 1%;
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+}
+
+.home .contentbutton button{
+    cursor: pointer;
+    float: left;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 2%;
+    font-family: 'Oswald', sans-serif;
+    width: 30%;
+    font-size: x-large;
+    border: 2px solid #000;
+    margin-left: 1%;
+}
+
+.home .content button:hover{
+    background-color: white;
+    color: black;
+}
+
+.home .contentbuttonop button{
+    margin-left: 1%;
+    cursor: pointer;
+    padding: 2%;
+    font-family: 'Oswald', sans-serif;
+    width: 30%;
+    font-size: x-large;
+    border: 2px solid #000;
+    background-color: white;
+    color: #000;
+    font-family: 'Oswald', sans-serif;
+    font-size: x-large;
+}
+
+.home .contentbuttonop button:hover{
+    background-color: #000;
+    color: #eee;
+}
+
+.home .content .contentbtn img{
+    width: 15%;
+    margin-left: 20%;
+}
+
+.homesearch{
+    border: 0 solid #eee;
+    margin: 2% 20%;
+}
+
+.homesearch img{
+    width: 75%;
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border-radius: 10px;
+    margin-bottom: 2%;
+    margin-left: 8%;
+}
+
+.homesearch{
+    font-family: 'Oswald', sans-serif;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.homesearch .buyleft h3, .homesearch .sellleft h3{
+    font-size: xx-large;
+}
+
+.homesearch .buyleft img, .homesearch .sellleft img{
+    box-shadow: none;
+    width: 5%;
+    margin-bottom: -1%;
+    margin-left: 0.2%;
+}
+
+.homesearch .buyhome{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: 5%;
+}
+
+.homesearch .buyrenthome{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: 5%;
+}
+
+.homesearch .sellhome{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: 5%;
+}
+
+.homesearch .sellrenthome{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: 5%;
+}
+
+.homesearch p{
+    text-align: justify;
+    text-align: start;
+    font-family: 'EB Garamond', serif;
+    font-weight: 500;
+    font-size: 125%;
+    line-height: 150%;
+}
+
+.homesearch button{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 0.5%;
+    margin-top: -1%;
+    font-family: 'Oswald', sans-serif;
+    width: 20%;
+    font-size: x-large;
+    border: 2px solid #000;
+}
+
+.homesearch button:hover{
+    background-color: white;
+    color: black;
+}
+
+.buyformsection .buyformheader{
+    text-align: center;
+    font-size: 150%;
+}
+
+.buyformsection .formsection{
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border-radius: 10px;
+    margin: 2% 20%;
+    font-family: 'EB Garamond', serif;
+    font-weight: 500;
+    font-size: 125%;
+    padding-left: 5%;
+    padding-top: 0.5%;
+}
+
+.buyformsection .formsection p{
+    font-weight: 600;
+    margin-left: -2%;
+    margin-bottom: 5px;
+}
+
+.formsection .element input[type="radio"]{
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+.formsection .element input[type="radio"]:checked + label{
+    background-color: #000;
+    color: #eee;
+    border-radius: 10px;
+    padding: 0.5%;
+}
+
+.formsection .element input::placeholder{
+    font-family: 'Oswald', sans-serif;
+}
+
+.formsection .element label{
+    margin: 2%;
+}
+
+.formsection .element input[type="text"]{
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    font-family: 'Oswald', sans-serif;  
+    margin: 1% 0%;
+}
+
+.formsection .element input[type="text"]:focus{
+    outline: none;
+}
+
+.formsection .element pre{
+    font-weight: 500;
+    margin-left: 2%;
+}
+
+.formsection .element input[type="number"]{
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    font-family: 'Oswald', sans-serif;  
+    margin: 1% 0%;
+}
+
+.formsection .element input[type="number"]:focus{
+    outline: none;
+}
+
+.formsection .elementbtn button{
+    font-family: 'Oswald', sans-serif;
+    font-size: 150%;
+    width: 25%;
+    margin: 5% 33%;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: x-large;
+    border: 2px solid #000;
+}
+
+.formsection .elementbtn button:hover{
+    color: #000;
+    background-color: #eee;
+}
+
+.formsection .element input[type="range"]{
+    -webkit-appearance: none;
+    background-color: transparent;
+}
+
+.formsection .element input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+}
+  
+.formsection .element input[type="range"]:focus{
+    outline: none;
+}
+  
+.formsection .element input[type="range"]::-ms-track{
+    width: 100%;
+    cursor: pointer;
+    background: transparent; 
+    border-color: transparent;
+    color: transparent;
+}
+
+.formsection .element input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    border: 1px solid #000000;
+    height: 16px;
+    width: 16px;
+    margin-top: -8px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+.formsection .element input[type=range]::-webkit-slider-runnable-track {
+    background: #000;
+    height: 25%;
+}
+
+span img{
+    width: 4%;
+    margin-top: 2%;
+}
