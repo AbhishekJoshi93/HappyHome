@@ -1,4 +1,165 @@
 <%- include("header") -%>
 <%- include("nav") -%>
+    <section class="allformsection">
+        <div class="allformheader">
+            <p><span><img src="/icon/type.svg" alt="type logo"> Sale <span><img src="/icon/type.svg" alt="type logo"></p>
+        </div>
+        <div class="formsection">
+            <form action="/home/sale" method="post">
+              <div class="element">
+                <div class="element0">
+                    <p>Personal Detail <span><img src="/icon/dealer.svg" alt="dealer logo"></span></p>
+                    <label for="elepername">Owner Name: </label>
+                    <input type="text" name="pername" id="elepername" placeholder="eg. Abhi" autocomplete="off" required>
+                    <br>
+                    <label for="eleperphone">Owner Phone Number: </label>
+                    <input type="number" name="perphoneno" id="eleperphone" placeholder="eg. 0123456789" autocomplete="off" required>
+                    <br>
+                    <pre>* This details are only shown to interested people only.</pre>
+                </div>
+                <div class="element1">
+                    <p>Type <span><img src="/icon/dealer.svg" alt="dealer logo"></span></p>
+                    <input type="radio" id="elesale" name="type" value="sale" checked disabled>
+                    <label for="elesale">Sale Home</label>
+                    <input type="radio" id="elelease" name="type" value="lease" disabled>
+                    <label for="elelease">Lease Home</label>
+                </div>
+                <div class="element2">
+                    <p>Type of Property <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <input type="radio" id="eleapartment" name="typeofp" value="apartment">
+                    <label for="eleapartment">Apartment</label>
+                    <input type="radio" id="elebungalows" name="typeofp" value="bungalows"> 
+                    <label for="elebungalows">Bungalows</label>
+                </div>
+                <div class="element3">
+                    <p>Property Details <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <label for="elename">Name: </label>
+                    <input type="text" name="namepro" id="elename" placeholder="eg. Aurora" autocomplete="off" required>
+                    <br>
+                    <label for="elenumber">Number: </label>
+                   <input type="number" name="numberpro" id="elenumber" placeholder="eg. 34" autocomplete="off" required>
+                    <br>
+                    <label for="elefloor">Floor: </label>
+                    <input type="number" name="floorpro" id="elefloor" placeholder="eg. 4" autocomplete="off" required>
+                    <br>
+                    <label for="elearea">Area: </label>
+                    <input type="text" name="areapro" id="elearea" placeholder="eg. Karelibaug" autocomplete="off" required>
+                    <br>
+                    <label for="elecity">City: </label>
+                    <input type="text" name="citypro" id="elecity" placeholder="eg. Vadodara" autocomplete="off" required>
+                    <br>
+                    <label for="elestate">State: </label>
+                    <input type="text" name="statepro" id="elestate" placeholder="eg. Gujarat" autocomplete="off" required>                        <br>
+                    <label for="elepincode">Pin Code: </label>
+                    <input type="number" name="pincodepro" id="elepincode" placeholder="eg. 390022" autocomplete="off" required>
+                    <br>
+                    <label for="elebudgettxt">Budget: </label>
+                    <input type="text" name="budgetprotxt" id="elebudgettxt" placeholder="eg. 33" autocomplete="off" required>
+                    <br>
+                    <pre>* Budget value in lakhs. </pre>
+                </div>
+                <div class="element4">
+                    <p>Rera <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <label>Rera Approved: </label>
+                    <input type="radio" name="rera" id="elereraappy" value="yes">
+                    <label for="elereraappy">Yes</label>
+                    <input type="radio" name="rera" id="elereraappn" value="no">
+                    <label for="elereraappn">No</label>
+                    <br>    
+                    <label for="elererano">Rera Number: </label>
+                    <input type="number" name="rerano" id="elererano" autocomplete="off" placeholder="eg. 123123123" required>
+                </div>
+                <div class="element5">
+                    <p>More Details <span><img src="/icon/dealer.svg" alt="dealer logo"></span></p>
+                    <label>Negotiation: </label>
+                    <input type="radio" name="nego" id="elenegoy" value="yes">
+                    <label for="elenegoy">Yes</label>
+                    <input type="radio" name="nego" id="elenegon" value="no">
+                    <label for="elenegon">No</label>
+                    <br>
+                    <label for="eleagepro">Age Of Property: </label>
+                    <input type="number" name="ageofpro" id="eleagepro" placeholder="eg. 4" autocomplete="off" required>
+                    <br>
+                    <pre>* Age of property is in years.</pre>
+                    <label for="eledespro">Description: </label>
+                    <input type="text" name="despro" id="eledespro" placeholder="eg. extras" autocomplete="off" required>
+                </div>
+                <div class="element6">
+                    <p>Specific Details <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <label for="elerooms">Number Of Rooms: </label>
+                    <input type="number" name="noofrooms" id="elerooms" placeholder="eg. 3" autocomplete="off" required>
+                    <br>
+                    <label for="elebathrooms">Number Of Bathrooms: </label>
+                    <input type="number" name="noofbathrooms" id="elebathrooms" placeholder="eg. 4" autocomplete="off" required>
+                    <br>
+                    <label>Furnishing: </label>
+                    <input type="radio" name="furnishedpro" id="eleunfurnishing" value="unfurnishing">
+                    <label for="eleunfurnishing">Un-Furnishing</label>
+                    <input type="radio" name="furnishedpro" id="elesemifurnishing" value="semifurnishing">
+                    <label for="elesemifurnishing">Semi-Furnishing</label>
+                    <input type="radio" name="furnishedpro" id="elefullyfurnishing" value="fullyfurnishing">
+                    <label for="elefullyfurnishing">Fully-Furnishing</label>
+                    <br>
+                    <label for="eleproarea">Property Area: </label>
+                    <input type="number" name="areasqpro" id="eleproarea" placeholder="eg. 10000" autocomplete="off" required>
+                    <br>
+                    <pre>* Property Area is in sqaure foot.</pre>
+                    <label>Property Facing: </label>
+                    <input type="radio" name="facingpro" id="elefacingeast" value="eastfacing">
+                    <label for="elefacingeast">East</label>
+                    <input type="radio" name="facingpro" id="elefacingwest" value="westfacing">
+                    <label for="elefacingwest">West</label>
+                    <input type="radio" name="facingpro" id="elefacingnorth" value="northfacing">
+                    <label for="elefacingnorth">North</label>
+                    <input type="radio" name="facingpro" id="elefacingsouth" value="southfacing">
+                    <label for="elefacingsouth">South</label>
+                </div>
+                <div class="element7">
+                    <p>Extra Features <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <label>Near By: </label>
+                    <input type="checkbox" name="nearbypro" id="elehospitalpro" value="hospital">
+                    <label for="elehospitalpro">Hospital</label>
+                    <input type="checkbox" name="nearbypro" id="eleschoolpro" value="school">
+                    <label for="eleschoolpro">School</label>
+                    <input type="checkbox" name="nearbypro" id="eleshoppingmallpro" value="shoppingmall">
+                    <label for="eleshoppingmallpro">Shopping Mall</label>
+                    <input type="checkbox" name="nearbypro" id="elecarparkingpro" value="carparking">
+                    <label for="elecarparkingpro">Car Parking</label>
+                    <input type="checkbox" name="nearbypro" id="eleatmpro" value="atm">
+                    <label for="eleatmpro">ATM</label>
+                    <br>
+                    <br>
+                    <label>Amenities: </label>
+                    <input type="checkbox" name="amenitiespro" id="eleliftpro" value="lift">
+                    <label for="eleliftpro">Lift</label>
+                    <input type="checkbox" name="amenitiespro" id="elegardenpro" value="garden">
+                    <label for="elegardenpro">Garden</label>
+                    <input type="checkbox" name="amenitiespro" id="elesecuritypro" value="security">
+                    <label for="elesecuritypro">24*7 Security</label>
+                    <input type="checkbox" name="amenitiespro" id="eleclubhousepro" value="clubhouse">
+                    <label for="eleclubhousepro">Club House</label>
+                    <input type="checkbox" name="amenitiespro" id="elegymnasiumpro" value="gymnasium">
+                    <label for="elegymnasiumpro">Gymnasium</label>
+                    <br>
+                    <br>
+                    <label>Furnishing: </label>
+                    <input type="checkbox" name="furnishingpro" id="elewardrobepro" value="wardrobe">
+                    <label for="elewardrobepro">Wardrobe</label>
+                    <input type="checkbox" name="furnishingpro" id="elegasconnectionpro" value="gasconnection">
+                    <label for="elegasconnectionpro">Gas Connection</label>
+                    <input type="checkbox" name="furnishingpro" id="eledinningpro" value="dinning">
+                    <label for="eledinningpro">Dinning</label>
+                    <input type="checkbox" name="furnishingpro" id="elerefrigeratorpro" value="refrigerator">
+                    <label for="elerefrigeratorpro">Refrigerator</label>
+                    <input type="checkbox" name="furnishingpro" id="elebedpro" value="bed">
+                    <label for="elebedpro">Bed</label>
+                </div>
+            </div>
+            <div class="elementbtn">
+                <button type="submit">List</button>
+            </div>  
+            </form>
+        </div>
+    </section>
 <%- include("bar") -%>
 <%- include("footer") -%>
