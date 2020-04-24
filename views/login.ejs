@@ -1,0 +1,25 @@
+<%- include("header") -%>
+<section class="allformsection">
+    <div class="allformheader">
+        <p><span><img src="/icon/rentlogo.svg" alt="rent logo"> Login <span><img src="/icon/salelogo.svg" alt="sale logo"></p>
+    </div>
+</section>
+    <section class="logsection">
+        <div class="logformdiv">
+            <div class="logform element">
+                <form action="/login" method="post">
+                    <label for="logeleemil">Email: </label>
+                    <input type="email" name="username" id="logeleemil" placeholder="eg. Abhi@happyhome.com" autocomplete="off" required>
+                    <br>
+                    <label for="logelepassword">Password: </label>
+                    <input type="password" name="password" id="logelepassword" placeholder="eg. Abhi123" autocomplete="off" required>
+                    <br>
+                    <div class="logelementbtn">
+                        <button type="submit">Login</button>
+                        <button type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+<%- include("footer") -%>

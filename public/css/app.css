@@ -259,6 +259,7 @@ body{
     padding-top: 0.5%;
 }
 
+
 .allformsection .formsection p{
     font-weight: 600;
     margin-left: -2%;
@@ -294,7 +295,7 @@ body{
     padding: 0.5%;
 }
 
-.formsection .element input::placeholder{
+.element input::placeholder{
     font-family: 'Oswald', sans-serif;
 }
 
@@ -310,6 +311,21 @@ body{
 }
 
 .formsection .element input[type="text"]:focus{
+    outline: none;
+}
+
+input[type="email"], input[type="password"]{
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    font-family: 'Oswald', sans-serif;  
+    margin: 1% 0%;    
+}
+
+input[type="email"]:focus{
+    outline: none;
+}
+
+input[type="password"]:focus{
     outline: none;
 }
 
@@ -344,6 +360,25 @@ body{
 }
 
 .formsection .elementbtn button:hover{
+    color: #000;
+    background-color: #eee;
+}
+
+.logelementbtn button, .regelementbtn button{
+    margin-top: 2%;
+    font-family: 'Oswald', sans-serif;
+    font-size: 150%;
+    width: 15%;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: x-large;
+    border: 2px solid #000;
+}
+
+.logelementbtn button:hover, .regelementbtn button:hover{
     color: #000;
     background-color: #eee;
 }
@@ -395,6 +430,22 @@ input, label{
     cursor: pointer;
 }
 
+input{
+    width: 20%;
+}
+
 .allformheader img{
     width: 3%;
+}
+
+.logformdiv, .regformdiv{
+    text-align: center;
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border-radius: 10px;
+    margin: 2% auto;
+    width: 50%;
+    font-family: 'EB Garamond', serif;
+    font-weight: 500;
+    font-size: 125%;
+    padding: 5% 0;
 }

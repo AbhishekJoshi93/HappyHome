@@ -1,0 +1,25 @@
+<%- include("header") -%>
+<section class="allformsection">
+    <div class="allformheader">
+        <p><span><img src="/icon/salelogo.svg" alt="sale logo"> Register <span><img src="/icon/rentlogo.svg" alt="rent logo"></p>
+    </div>
+</section>
+    <section class="regsection">
+        <div class="regformdiv">
+            <div class="regform element">
+                <form action="/register" method="post">
+                    <label for="regeleemil">Email: </label>
+                    <input type="email" name="username" id="regeleemil" placeholder="eg. Abhi@happyhome.com" autocomplete="off" required>
+                    <br>
+                    <label for="regelepassword">Password: </label>
+                    <input type="password" name="password" id="regelepassword" placeholder="eg. Abhi123" autocomplete="off" required>
+                    <br>
+                    <div class="regelementbtn">
+                        <button type="submit">Register</button>
+                        <button type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+<%- include("footer") -%>
