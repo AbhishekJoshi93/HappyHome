@@ -25,9 +25,70 @@ app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
+const leasepropertySchema = new mongoose.Schema({
+    personname: String,
+    personnumber: Number,
+    type: String,
+    typeproperty: String,
+    propertyname: String,
+    propertynumber: Number,
+    propertyfloor: Number,
+    propertyarea: String,
+    propertycity: String,
+    propertystate: String,
+    propertypincode: Number,
+    propertybudget: Number,
+    propertyreraapproved: String,
+    propertyreranumber: Number,
+    propertysecuritydeposit: String,
+    propertypreference: String,
+    propertynegotiation: String,
+    propertyage: Number,
+    propertydescription: String,
+    propertynumberrooms: Number,
+    propertynumberbathrooms: Number,
+    propertyfurnishingtype: String,
+    propertysquarearea: Number,
+    propertyfacing: String,
+    propertynearby: Array,
+    propertyamenities: Array,
+    propertyfurnishing: Array,
+    propertytime: Number    
+});
+
+const rentpropertySchema = new mongoose.Schema({
+    personname: String,
+    personnumber: Number,
+    type: String,
+    typeproperty: String,
+    propertyname: String,
+    propertynumber: Number,
+    propertyfloor: Number,
+    propertyarea: String,
+    propertycity: String,
+    propertystate: String,
+    propertypincode: Number,
+    propertybudget: Number,
+    propertyreraapproved: String,
+    propertyreranumber: Number,
+    propertynegotiation: String,
+    propertyage: Number,
+    propertydescription: String,
+    propertynumberrooms: Number,
+    propertynumberbathrooms: Number,
+    propertyfurnishingtype: String,
+    propertysquarearea: Number,
+    propertyfacing: String,
+    propertynearby: Array,
+    propertyamenities: Array,
+    propertyfurnishing: Array
+});
+
 const userSchema = new mongoose.Schema({
     email: String, 
-    password: String
+    password: String,
+    rentproperty: [rentpropertySchema],
+    leaseproperty: [leasepropertySchema]
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -99,16 +160,113 @@ app.get("/home/buy", (req,res) => {
     res.render(__dirname + "/views/buyform.ejs");
 });
 
-app.get("/home/sale", (req,res) => {
-    res.render(__dirname + "/views/saleform.ejs");
-});
-
 app.get("/home/rent", (req,res) => {
     res.render(__dirname + "/views/rentform.ejs");
 });
 
+app.get("/home/sale", (req,res) => {
+    if(req.isAuthenticated()){
+        res.render(__dirname + "/views/saleform.ejs");
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/home/sale", (req,res) => {
+    const bodydata = {
+        personname: req.body.pername,
+        personnumber: req.body.perphoneno,
+        type: req.body.type,
+        typeproperty: req.body.typeofp,
+        propertyname: req.body.namepro,
+        propertynumber: req.body.numberpro,
+        propertyfloor: req.body.floorpro,
+        propertyarea: req.body.areapro,
+        propertycity: req.body.citypro,
+        propertystate: req.body.statepro,
+        propertypincode: req.body.pincodepro,
+        propertybudget: req.body.budgetprotxt,
+        propertyreraapproved: req.body.rera,
+        propertyreranumber: req.body.rerano,
+        propertynegotiation: req.body.nego,
+        propertyage: req.body.ageofpro,
+        propertydescription: req.body.despro,
+        propertynumberrooms: req.body.noofrooms,
+        propertynumberbathrooms: req.body.noofbathrooms,
+        propertyfurnishingtype: req.body.furnishedpro,
+        propertysquarearea: req.body.areasqpro,
+        propertyfacing: req.body.facingpro,
+        propertynearby: req.body.nearbypro,
+        propertyamenities: req.body.amenitiespro,
+        propertyfurnishing: req.body.furnishingpro
+    };
+
+    User.findById(req.user.id, function(err,foundUser){
+        if(err){
+            console.log(err);
+        }else{
+            if(foundUser){
+                foundUser.rentproperty.push(bodydata);
+                foundUser.save(function(){
+                    res.redirect("/home");
+                });
+            }
+        }
+    });
+});
+
 app.get("/home/lease", (req,res) => {
-    res.render(__dirname + "/views/leaseform.ejs");
+    if(req.isAuthenticated()){
+        res.render(__dirname + "/views/leaseform.ejs");
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/home/lease", (req,res) => {
+    const bodydata = {
+        personname: req.body.pername,
+        personnumber: req.body.perphoneno,
+        type: req.body.type,
+        typeproperty: req.body.typeofp,
+        propertyname: req.body.namepro,
+        propertynumber: req.body.numberpro,
+        propertyfloor: req.body.floorpro,
+        propertyarea: req.body.areapro,
+        propertycity: req.body.citypro,
+        propertystate: req.body.statepro,
+        propertypincode: req.body.pincodepro,
+        propertybudget: req.body.budgetprotxt,
+        propertyreraapproved: req.body.rera,
+        propertyreranumber: req.body.rerano,
+        propertysecuritydeposit: req.body.secdeposit,
+        propertypreference: req.body.prefered,
+        propertynegotiation: req.body.nego,
+        propertyage: req.body.ageofpro,
+        propertydescription: req.body.despro,
+        propertynumberrooms: req.body.noofrooms,
+        propertynumberbathrooms: req.body.noofbathrooms,
+        propertyfurnishingtype: req.body.furnishedpro,
+        propertysquarearea: req.body.areasqpro,
+        propertyfacing: req.body.facingpro,
+        propertynearby: req.body.nearbypro,
+        propertyamenities: req.body.amenitiespro,
+        propertyfurnishing: req.body.furnishingpro,
+        propertytime: req.body.timepro
+    };
+
+    User.findById(req.user.id, function(err,foundUser){
+        if(err){
+            console.log(err);
+        }else{
+            if(foundUser){
+                foundUser.leaseproperty.push(bodydata);
+                foundUser.save(function(){
+                    res.redirect("/home");
+                });
+            }
+        }
+    });
 });
 
 app.listen("3341", () => {
