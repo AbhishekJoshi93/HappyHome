@@ -56,7 +56,7 @@ const leasepropertySchema = new mongoose.Schema({
     propertytime: Number    
 });
 
-const rentpropertySchema = new mongoose.Schema({
+const salepropertySchema = new mongoose.Schema({
     personname: String,
     personnumber: Number,
     type: String,
@@ -87,7 +87,7 @@ const rentpropertySchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     email: String, 
     password: String,
-    rentproperty: [rentpropertySchema],
+    saleproperty: [salepropertySchema],
     leaseproperty: [leasepropertySchema]
 });
 
@@ -157,11 +157,27 @@ app.get("/home", (req,res) => {
 });
 
 app.get("/home/buy", (req,res) => {
-    res.render(__dirname + "/views/buyform.ejs");
+    if(req.isAuthenticated()){
+        res.render(__dirname + "/views/buyform.ejs");
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/home/buy", (req,res) => {
+    
 });
 
 app.get("/home/rent", (req,res) => {
-    res.render(__dirname + "/views/rentform.ejs");
+    if(req.isAuthenticated()){
+        res.render(__dirname + "/views/rentform.ejs");
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/home/rent", (req,res) => {
+    
 });
 
 app.get("/home/sale", (req,res) => {
@@ -206,7 +222,7 @@ app.post("/home/sale", (req,res) => {
             console.log(err);
         }else{
             if(foundUser){
-                foundUser.rentproperty.push(bodydata);
+                foundUser.saleproperty.push(bodydata);
                 foundUser.save(function(){
                     res.redirect("/home");
                 });
@@ -267,6 +283,20 @@ app.post("/home/lease", (req,res) => {
             }
         }
     });
+});
+
+app.get("/home/dashboard", (req,res) => {
+    if(req.isAuthenticated()){
+        User.findById(req.user.id, 'leaseproperty saleproperty', (err,leasesalelists) => { 
+            if(err){
+                console.log(err);
+            }else{
+                res.render(__dirname + "/views/dashboard.ejs", {leasesaleobj: leasesalelists});
+            }
+        });
+    }else{
+        res.redirect("/");
+    }
 });
 
 app.listen("3341", () => {

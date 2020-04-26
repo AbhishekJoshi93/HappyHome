@@ -1,0 +1,59 @@
+<%- include("header") -%>
+<%- include("nav") -%>
+    <section class="dashboardsection">
+        <div class="dashheader">
+            <h3>My Listing</h3>
+        </div>
+        <div class="dashcontent">
+            <div class="dashgrid">
+                <div class="dashcontentcard">
+                    <h4>Lease <span><img src="/icon/deal.svg" alt="deal logo"></span></h4>
+                    <div class="mainleasegrid">
+                        <% leasesaleobj.leaseproperty.forEach(function(username){ %> 
+                        <div class="leasegrid">
+                            <p class="grid1">Name: <%=username.personname%></p>
+                            <p>Phone number: <%=username.personnumber%></p>
+                            <p>Property Type: <%=username.typeproperty%></p>
+                            <p>Property Name: <%=username.propertyname%></p>
+                            <p>Property Address: <%=username.propertynumber%>,
+                                <%=username.propertyfloor%> floor,
+                                <%=username.propertyname%>,
+                                <%=username.propertyarea%>,
+                                <%=username.propertycity%>,
+                                <%=username.propertystate%>,
+                                <%=username.propertypincode%>.
+                            </p>
+                            <p>Budget: <%=username.propertybudget%></p>
+                            <p>Rera Approved: <%=username.propertyreraapproved%></p>
+                            <p>Rera Number: <%=username.propertyreranumber%></p>
+                        </div>
+                        <% }) %>
+                    </div>
+                    <h4>Sale <span><img src="/icon/deal.svg" alt="deal logo"></span></h4>
+                    <div class="mainsalegrid">
+                        <% leasesaleobj.saleproperty.forEach(function(username){ %>
+                        <div class="salegrid">
+                            <p class="grid1">Name: <%=username.personname%></p>
+                            <p>Phone number: <%=username.personnumber%></p>
+                            <p>Property Type: <%=username.typeproperty%></p>
+                            <p>Property Name: <%=username.propertyname%></p>
+                            <p>Property Address: <%=username.propertynumber%>,
+                                <%=username.propertyfloor%> floor,
+                                <%=username.propertyname%>,
+                                <%=username.propertyarea%>,
+                                <%=username.propertycity%>,
+                                <%=username.propertystate%>,
+                                <%=username.propertypincode%>.
+                            </p>
+                            <p>Budget: <%=username.propertybudget%></p>
+                            <p>Rera Approved: <%=username.propertyreraapproved%></p>
+                            <p>Rera Number: <%=username.propertyreranumber%></p>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<%- include("bar") -%>
+<%- include("footer") -%>

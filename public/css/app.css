@@ -449,3 +449,57 @@ input{
     font-size: 125%;
     padding: 5% 0;
 }
+
+.dashboardsection{
+    margin: 2% 25%;
+}
+
+.dashboardsection h3{
+    font-size: x-large;
+}
+
+.dashboardsection h4{
+    font-size: 125%;
+    border: 0 solid #eee;
+    margin-top: 5%;
+}
+
+.dashboardsection p{
+    font-family: 'EB Garamond', serif;
+    font-weight: 500;
+}
+
+.dashboardsection .leasegrid{
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+}
+
+.dashboardsection .leasegrid .grid1{
+    grid-column: 1/3;
+}
+
+.dashboardsection .salegrid{
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+}
+
+.dashboardsection .salegrid .grid1{
+    grid-column: 1/3;
+}
+
+.dashboardsection .dashcontent{
+    margin-left: 5%;
+}
+
+.mainleasegrid, .mainsalegrid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 5%;
+    margin: 2%;
+}
