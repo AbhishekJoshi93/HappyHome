@@ -3,7 +3,7 @@ body{
     padding: 0;
     cursor: default;
     background-color:#E0E5EC;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald', sans-serif;    
 }
 
 .links{
@@ -55,8 +55,8 @@ body{
 }
 
 .header .headerline{
-    text-align: center;
     width: 80%;
+    text-align: center;
 }
 
 .footer .footerline{
@@ -495,11 +495,4 @@ input{
 
 .dashboardsection .dashcontent{
     margin-left: 5%;
-}
-
-.mainleasegrid, .mainsalegrid{
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 5%;
-    margin: 2%;
 }

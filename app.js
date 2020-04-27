@@ -123,7 +123,6 @@ app.post("/login", (req,res) => {
             });
         }
     });
-
 });
 
 app.get("/register", (req,res) => {
@@ -165,7 +164,7 @@ app.get("/home/buy", (req,res) => {
 });
 
 app.post("/home/buy", (req,res) => {
-    
+
 });
 
 app.get("/home/rent", (req,res) => {
