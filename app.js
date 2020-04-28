@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
+const bootbox = require('bootbox');
 
 const app = express();
 app.use(express.static(__dirname + "/public"));
@@ -164,7 +165,29 @@ app.get("/home/buy", (req,res) => {
 });
 
 app.post("/home/buy", (req,res) => {
-
+    User.find({
+        $and: [
+            {"saleproperty.typeproperty": req.body.typeofp},
+            {"saleproperty.propertyarea": req.body.areapro},
+            {"saleproperty.propertycity": req.body.citypro},
+            {"saleproperty.propertystate": req.body.statepro},
+            {"saleproperty.propertybudget": {$lte: req.body.budgetprotxt}},
+            {"saleproperty.propertyfurnishingtype": req.body.furnishedpro}
+        ]
+    }, 'saleproperty', (err,result) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.render(__dirname + "/views/resultbuy.ejs", {
+                saleobj: result,
+                typeofp: req.body.typeofp,
+                areapro: req.body.areapro,
+                citypro: req.body.citypro,
+                statepro: req.body.statepro,
+                budgetprotxt: req.body.budgetprotxt,
+                furnishedpro: req.body.furnishedpro});
+        }
+    });
 });
 
 app.get("/home/rent", (req,res) => {
@@ -176,7 +199,29 @@ app.get("/home/rent", (req,res) => {
 });
 
 app.post("/home/rent", (req,res) => {
-    
+    User.find({
+        $and: [
+            {"leaseproperty.typeproperty": req.body.typeofp},
+            {"leaseproperty.propertyarea": req.body.areapro},
+            {"leaseproperty.propertycity": req.body.citypro},
+            {"leaseproperty.propertystate": req.body.statepro},
+            {"leaseproperty.propertybudget": {$lte: req.body.budgetprotxt}},
+            {"leaseproperty.propertyfurnishingtype": req.body.furnishedpro}
+        ]
+    }, 'leaseproperty', (err,result) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.render(__dirname + "/views/resultrent.ejs", {
+                leaseobj: result,
+                typeofp: req.body.typeofp,
+                areapro: req.body.areapro,
+                citypro: req.body.citypro,
+                statepro: req.body.statepro,
+                budgetprotxt: req.body.budgetprotxt,
+                furnishedpro: req.body.furnishedpro});
+        }
+    });
 });
 
 app.get("/home/sale", (req,res) => {
@@ -296,6 +341,9 @@ app.get("/home/dashboard", (req,res) => {
     }else{
         res.redirect("/");
     }
+});
+
+app.get("/home/buy/area", (req,res) => {
 });
 
 app.listen("3341", () => {

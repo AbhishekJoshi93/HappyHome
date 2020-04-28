@@ -1,0 +1,42 @@
+<%- include("header") -%>
+<%- include("nav") -%>
+    <section class="dashboardsection">
+        <div class="dashcontent">
+            <div class="dashgrid">
+                <div class="dashcontentcard">
+                    <h4>For Lease <span><img src="/icon/deal.svg" alt="deal logo"></span></h4>
+                    <div class="mainsalegrid">
+                        <% leaseobj.forEach(function(username0){ %>
+                        <% username0.leaseproperty.forEach(function(username){ %>
+                            <div class="salegrid">
+                                <% if(username.typeproperty == typeofp){ if(username.propertyarea == areapro){ if(username.propertycity == citypro){ if(username.propertystate == statepro){ if(username.propertybudget <= budgetprotxt){ if(username.propertyfurnishingtype == furnishedpro){ %>
+    
+                                <p class="grid1">Name: <%=username.personname%></p>
+                                <p>Phone number: <%=username.personnumber%></p>
+                                <p>Property Type: <%=username.typeproperty%></p>
+                                <p>Property Name: <%=username.propertyname%></p>
+                                <p>Property Address: <%=username.propertynumber%>,
+                                    <%=username.propertyfloor%> floor,
+                                    <%=username.propertyname%>,
+                                    <%=username.propertyarea%>,
+                                    <%=username.propertycity%>,
+                                    <%=username.propertystate%>,
+                                    <%=username.propertypincode%>.
+                                </p>
+                                <p>Budget: <%=username.propertybudget%> Thousands.</p>
+                                <p>Rera Approved: <%=username.propertyreraapproved%></p>
+                                <p>Rera Number: <%=username.propertyreranumber%></p>
+                                <% }}}}}} %>
+                            </div>
+                            <div class="justbreak">
+                            </div>
+                        <% }) %>
+                            <br>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<%- include("bar") -%>
+<%- include("footer") -%>

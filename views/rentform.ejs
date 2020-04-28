@@ -1,4 +1,52 @@
 <%- include("header") -%>
 <%- include("nav") -%>
+    <section class="allformsection">
+        <div class="allformheader">
+            <p><span><img src="/icon/type.svg" alt="type logo"> Rent <span><img src="/icon/type.svg" alt="type logo"></p>
+        </div>
+        <div class="formsection">
+            <form action="/home/rent" method="post">
+              <div class="element">
+                <div class="element1">
+                    <p>Type of Property <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <input type="radio" id="eleapartment" name="typeofp" value="apartment">
+                    <label for="eleapartment">Apartment</label>
+                    <input type="radio" id="elebungalows" name="typeofp" value="bungalows"> 
+                    <label for="elebungalows">Bungalows</label>
+                </div>
+                <div class="element2">
+                    <p>Location <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <label for="elearea">Area: </label>
+                    <input type="text" name="areapro" id="elearea" placeholder="eg. Karelibaug" autocomplete="off" required>
+                    <br>
+                    <label for="elecity">City: </label>
+                    <input type="text" name="citypro" id="elecity" placeholder="eg. Vadodara" autocomplete="off" required>
+                    <br>
+                    <label for="elestate">State: </label>
+                    <input type="text" name="statepro" id="elestate" placeholder="eg. Gujarat" autocomplete="off" required>                        
+                    <br>
+                    <p>Budget: <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <label for="elebudgettxt">Maximum: </label>
+                    <input type="text" name="budgetprotxt" id="elebudgettxt" placeholder="eg. 33" autocomplete="off" required>
+                    <br>
+                    <pre>* Budget value in Thousand. </pre>
+                </div>
+                <div class="element3">
+                    <p>Furnishing <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <input type="radio" name="furnishedpro" id="eleunfurnishing" value="unfurnishing">
+                    <label for="eleunfurnishing">Un-Furnishing</label>
+                    <input type="radio" name="furnishedpro" id="elesemifurnishing" value="semifurnishing">
+                    <label for="elesemifurnishing">Semi-Furnishing</label>
+                    <input type="radio" name="furnishedpro" id="elefullyfurnishing" value="fullyfurnishing">
+                    <label for="elefullyfurnishing">Fully-Furnishing</label>
+                    <br>
+                </div>
+            </div>
+            <div class="elementbtn">
+                <button type="submit">Find</button>
+            </div>  
+            </form>
+        </div>
+    </section>
 <%- include("bar") -%>
 <%- include("footer") -%>
