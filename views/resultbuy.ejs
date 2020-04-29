@@ -10,7 +10,8 @@
                         <% username0.saleproperty.forEach(function(username){ %>
                             <div class="salegrid">
                                 <% if(username.typeproperty == typeofp){ if(username.propertyarea == areapro){ if(username.propertycity == citypro){ if(username.propertystate == statepro){ if(username.propertybudget <= budgetprotxt){ if(username.propertyfurnishingtype == furnishedpro){ %>
-    
+                                
+                                <p class="grid0"><img src="/uploads/<%=username.propertyimage%>" alt="image upload"></p>
                                 <p class="grid1">Name: <%=username.personname%></p>
                                 <p>Phone number: <%=username.personnumber%></p>
                                 <p>Property Type: <%=username.typeproperty%></p>
@@ -26,6 +27,11 @@
                                 <p>Budget: <%=username.propertybudget%> Lakhs.</p>
                                 <p>Rera Approved: <%=username.propertyreraapproved%></p>
                                 <p>Rera Number: <%=username.propertyreranumber%></p>
+                                <form action="/interest" method="post">
+                                <p><input type="text" name="refid" class="inputvis" value=<%=username.personnumber%>></p>
+                                <p><input type="text" name="phoneno" class="input"></p>
+                                <p><button type="submit">Interested</button></p>
+                                </form>
                                 <% }}}}}} %>
                             </div>
                             <div class="justbreak">

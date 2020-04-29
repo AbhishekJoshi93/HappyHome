@@ -5,7 +5,7 @@
             <p><span><img src="/icon/type.svg" alt="type logo"> Sale <span><img src="/icon/type.svg" alt="type logo"></p>
         </div>
         <div class="formsection">
-            <form action="/home/sale" method="post">
+            <form action="/home/sale" method="post" enctype="multipart/form-data">
               <div class="element">
                 <div class="element0">
                     <p>Personal Detail <span><img src="/icon/dealer.svg" alt="dealer logo"></span></p>
@@ -155,9 +155,13 @@
                     <label for="elebedpro">Bed</label>
                 </div>
                 <div class="element8">
-                    <pre>Important Note: </pre>
+                    <p>Image <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <input type="file" name="imagepro" id="eleimg">
+                </div>
+                <div class="element9">
+                    <p>Important Notice <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
                     <br>
-                    <pre>* Type Of Property, Area, City, State, Budget, Furnishing </pre>
+                    <pre>* Type Of Property, Area, City, State, Budget, Furnishing, Image</pre>
                     <pre>are the fields from which your property will be search so enter properly. </pre>
                 </div>
             </div>

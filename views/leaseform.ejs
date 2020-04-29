@@ -5,7 +5,7 @@
             <p><span><img src="/icon/type.svg" alt="type logo"> Lease <span><img src="/icon/type.svg" alt="type logo"></p>
         </div>
         <div class="formsection">
-            <form action="/home/lease" method="post">
+            <form action="/home/lease" method="post" enctype="multipart/form-data">
               <div class="element">
                 <div class="element0">
                     <p>Personal Detail <span><img src="/icon/dealer.svg" alt="dealer logo"></span></p>
@@ -180,9 +180,13 @@
                     <pre>* Duration range is 0 to 36</pre>
                 </div>
                 <div class="element8">
-                    <pre>Important Note: </pre>
+                    <p>Image <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
+                    <input type="file" name="imagepro" id="eleimg">
+                </div>
+                <div class="element9">
+                    <p>Important Notice <span><img src="/icon/dealer.svg" alt="dealer logo"></p>
                     <br>
-                    <pre>* Type Of Property, Area, City, State, Budget, Furnishing </pre>
+                    <pre>* Type Of Property, Area, City, State, Budget, Furnishing, Image</pre>
                     <pre>are the fields from which your property will be search so enter properly. </pre>
                 </div>
             </div>
@@ -192,13 +196,5 @@
             </form>
         </div>
     </section>
-    <script>
-        var slider = document.getElementById("eleduration");
-        var output = document.getElementById("eledurationout");
-        output.innerHTML = slider.value;
-            slider.oninput = function() {
-            output.innerHTML = this.value;
-        }
-    </script>
 <%- include("bar") -%>
 <%- include("footer") -%>

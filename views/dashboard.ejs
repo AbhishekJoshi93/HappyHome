@@ -11,6 +11,7 @@
                     <div class="mainsalegrid">
                         <% leasesaleobj.saleproperty.forEach(function(username){ %>
                         <div class="salegrid">
+                            <p class="grid0"><img src="/uploads/<%=username.propertyimage%>" alt="image upload"></p>
                             <p class="grid1">Name: <%=username.personname%></p>
                             <p>Phone number: <%=username.personnumber%></p>
                             <p>Property Type: <%=username.typeproperty%></p>
@@ -34,6 +35,7 @@
                     <div class="mainleasegrid">
                         <% leasesaleobj.leaseproperty.forEach(function(username){ %> 
                         <div class="leasegrid">
+                            <p class="grid0"><img src="/uploads/<%=username.propertyimage%>" alt="image upload"></p>
                             <p class="grid1">Name: <%=username.personname%></p>
                             <p>Phone number: <%=username.personnumber%></p>
                             <p>Property Type: <%=username.typeproperty%></p>

@@ -517,3 +517,17 @@ input{
 .justbreak{
     height: 0.6vh;
 }
+
+.grid0{
+    grid-column: 1/4;
+}
+
+.grid0 img{
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 9px 9px 26px rgb(163,177,198,0.6), -9px -9px 26px rgba(255,255,255, 0.8);
+}
+
+.inputvis{
+    visibility: hidden;
+}

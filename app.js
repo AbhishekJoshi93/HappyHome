@@ -7,7 +7,24 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-const bootbox = require('bootbox');
+const multer  = require('multer');
+
+const accountSid = 'AC0c395964073c8ef0a1f933549a7d9be7';
+const authToken = '1092dd369d4d1b59cc7fecee3d68eb4b';   
+const twilio = require('twilio');
+const client = new twilio(accountSid, authToken);
+
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now());
+    }
+  });
+   
+var upload = multer({ storage: storage });
 
 const app = express();
 app.use(express.static(__dirname + "/public"));
@@ -54,7 +71,8 @@ const leasepropertySchema = new mongoose.Schema({
     propertynearby: Array,
     propertyamenities: Array,
     propertyfurnishing: Array,
-    propertytime: Number    
+    propertytime: Number,
+    propertyimage: String    
 });
 
 const salepropertySchema = new mongoose.Schema({
@@ -82,7 +100,8 @@ const salepropertySchema = new mongoose.Schema({
     propertyfacing: String,
     propertynearby: Array,
     propertyamenities: Array,
-    propertyfurnishing: Array
+    propertyfurnishing: Array,
+    propertyimage: String    
 });
 
 const userSchema = new mongoose.Schema({
@@ -185,7 +204,8 @@ app.post("/home/buy", (req,res) => {
                 citypro: req.body.citypro,
                 statepro: req.body.statepro,
                 budgetprotxt: req.body.budgetprotxt,
-                furnishedpro: req.body.furnishedpro});
+                furnishedpro: req.body.furnishedpro
+            });
         }
     });
 });
@@ -219,7 +239,9 @@ app.post("/home/rent", (req,res) => {
                 citypro: req.body.citypro,
                 statepro: req.body.statepro,
                 budgetprotxt: req.body.budgetprotxt,
-                furnishedpro: req.body.furnishedpro});
+                furnishedpro: req.body.furnishedpro,
+                pubnub: pubnub
+            });
         }
     });
 });
@@ -232,7 +254,7 @@ app.get("/home/sale", (req,res) => {
     }
 });
 
-app.post("/home/sale", (req,res) => {
+app.post("/home/sale", upload.single('imagepro'), (req,res) => {
     const bodydata = {
         personname: req.body.pername,
         personnumber: req.body.perphoneno,
@@ -258,7 +280,8 @@ app.post("/home/sale", (req,res) => {
         propertyfacing: req.body.facingpro,
         propertynearby: req.body.nearbypro,
         propertyamenities: req.body.amenitiespro,
-        propertyfurnishing: req.body.furnishingpro
+        propertyfurnishing: req.body.furnishingpro,
+        propertyimage: req.file.filename
     };
 
     User.findById(req.user.id, function(err,foundUser){
@@ -283,7 +306,7 @@ app.get("/home/lease", (req,res) => {
     }
 });
 
-app.post("/home/lease", (req,res) => {
+app.post("/home/lease", upload.single('imagepro'), (req,res) => {
     const bodydata = {
         personname: req.body.pername,
         personnumber: req.body.perphoneno,
@@ -312,7 +335,8 @@ app.post("/home/lease", (req,res) => {
         propertynearby: req.body.nearbypro,
         propertyamenities: req.body.amenitiespro,
         propertyfurnishing: req.body.furnishingpro,
-        propertytime: req.body.timepro
+        propertytime: req.body.timepro,
+        propertyimage: req.file.filename
     };
 
     User.findById(req.user.id, function(err,foundUser){
@@ -343,7 +367,17 @@ app.get("/home/dashboard", (req,res) => {
     }
 });
 
-app.get("/home/buy/area", (req,res) => {
+app.post("/interest", (req,res) => {
+    if(req.isAuthenticated()){
+        client.messages.create({
+            body: 'Hello I m interested in your listing on Happy Home. And for further mettings contact me on ' + req.body.phoneno,
+            to: '+91 ' + req.body.refid,
+            from: '+13214504842'
+        }).then((message) => console.log(message.sid));
+        res.render(__dirname + "/views/message.ejs");
+    }else{
+        res.redirect("/");
+    }
 });
 
 app.listen("3341", () => {
