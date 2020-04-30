@@ -10,7 +10,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const multer  = require('multer');
 
 const accountSid = 'AC0c395964073c8ef0a1f933549a7d9be7';
-const authToken = '1092dd369d4d1b59cc7fecee3d68eb4b';   
+const authToken = 'c299b7ccc96b4a4c40a133a1f31ce386';   
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
 
@@ -239,8 +239,7 @@ app.post("/home/rent", (req,res) => {
                 citypro: req.body.citypro,
                 statepro: req.body.statepro,
                 budgetprotxt: req.body.budgetprotxt,
-                furnishedpro: req.body.furnishedpro,
-                pubnub: pubnub
+                furnishedpro: req.body.furnishedpro
             });
         }
     });
@@ -370,7 +369,7 @@ app.get("/home/dashboard", (req,res) => {
 app.post("/interest", (req,res) => {
     if(req.isAuthenticated()){
         client.messages.create({
-            body: 'Hello I m interested in your listing on Happy Home. And for further mettings contact me on ' + req.body.phoneno,
+            body: 'Hello I m interested in your listing on Happy Home. And for further meetings contact me on ' + req.body.phoneno,
             to: '+91 ' + req.body.refid,
             from: '+13214504842'
         }).then((message) => console.log(message.sid));

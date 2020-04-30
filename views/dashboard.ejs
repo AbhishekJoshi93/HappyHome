@@ -12,11 +12,11 @@
                         <% leasesaleobj.saleproperty.forEach(function(username){ %>
                         <div class="salegrid">
                             <p class="grid0"><img src="/uploads/<%=username.propertyimage%>" alt="image upload"></p>
-                            <p class="grid1">Name: <%=username.personname%></p>
-                            <p>Phone number: <%=username.personnumber%></p>
-                            <p>Property Type: <%=username.typeproperty%></p>
-                            <p>Property Name: <%=username.propertyname%></p>
-                            <p>Property Address: <%=username.propertynumber%>,
+                            <p><span class="spanstyle">Name: </span><%=username.personname%></p>
+                            <p><span class="spanstyle">Phone number: </span><%=username.personnumber%></p>
+                            <p><span class="spanstyle">Property Type: </span><%=username.typeproperty%></p>
+                            <p><span class="spanstyle">Property Name: </span><%=username.propertyname%></p>
+                            <p><span class="spanstyle">Property Address: </span><%=username.propertynumber%>,
                                 <%=username.propertyfloor%> floor,
                                 <%=username.propertyname%>,
                                 <%=username.propertyarea%>,
@@ -24,9 +24,79 @@
                                 <%=username.propertystate%>,
                                 <%=username.propertypincode%>.
                             </p>
-                            <p>Budget: <%=username.propertybudget%> Lakhs.</p>
-                            <p>Rera Approved: <%=username.propertyreraapproved%></p>
-                            <p>Rera Number: <%=username.propertyreranumber%></p>
+                            <p><span class="spanstyle">Budget: </span><%=username.propertybudget%> Lakhs.</p>
+                            <p><span class="spanstyle">Rera Approved: </span><%=username.propertyreraapproved%></p>
+                            <p><span class="spanstyle">Rera Number: </span><%=username.propertyreranumber%></p>
+                            <p><span class="spanstyle">Negotaiation: </span><%=username.propertynegotiation%></p>
+                            <p><span class="spanstyle">Property Age: </span><%=username.propertyage%></p> 
+                            <p><span class="spanstyle">Negotaiation: </span><%=username.propertynegotiation%></p> 
+                            <p><span class="spanstyle">Number Of Rooms: </span><%=username.propertynumberrooms%></p> 
+                            <p><span class="spanstyle">Number Of Bathrooms: </span><%=username.propertynumberbathrooms%></p> 
+                            <p><span class="spanstyle">Property Sq Area: </span><%=username.propertysquarearea%></p>
+                            <p><span class="spanstyle">Property Facing: </span><%=username.propertyfacing%></p>
+                            <p class="customgrid"><span class="spanstyle">Near By:</span>
+                                <% username.propertynearby.forEach(function(element) { %>
+                                    <p>
+                                        <% if(element === "hospital") { %>
+                                            <img style="width: 25%;" src="/icon/hospital.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "school") { %>
+                                            <img style="width: 25%;" src="/icon/school.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "shoppingmall") { %>
+                                            <img style="width: 25%;" src="/icon/shoppingmall.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "carparking") { %>
+                                            <img style="width: 25%;" src="/icon/carparking.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "atm") { %>
+                                            <img style="width: 25%;" src="/icon/atm.svg" alt="icons">
+                                        <% } %>
+                                    </p>
+                                <% }) %>
+                            </p>
+                            <p class="customgrid"><span class="spanstyle">Amenities:</span>
+                                <% username.propertyamenities.forEach(function(element) { %>
+                                    <p>
+                                        <% if(element === "lift") { %>
+                                            <img style="width: 25%;" src="/icon/lift.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "garden") { %>
+                                            <img style="width: 25%;" src="/icon/garden.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "security") { %>
+                                            <img style="width: 25%;" src="/icon/security.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "clubhouse") { %>
+                                            <img style="width: 25%;" src="/icon/clubhouse.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "gymnasium") { %>
+                                            <img style="width: 25%;" src="/icon/gymnasium.svg" alt="icons">
+                                        <% } %>
+                                    </p>
+                                <% }) %>
+                            </p>
+                            <p class="customgrid"><span class="spanstyle">Furnishing:</span>
+                                <% username.propertyfurnishing.forEach(function(element) { %>
+                                    <p>
+                                        <% if(element === "wardrobe") { %>
+                                            <img style="width: 25%;" src="/icon/wardrobe.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "gasconnection") { %>
+                                            <img style="width: 25%;" src="/icon/gasconnection.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "dinning") { %>
+                                            <img style="width: 25%;" src="/icon/dinning.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "refrigerator") { %>
+                                            <img style="width: 25%;" src="/icon/refrigerator.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "bed") { %>
+                                            <img style="width: 25%;" src="/icon/bed.svg" alt="icons">
+                                        <% } %>
+                                    </p>
+                                <% }) %>
+                            </p>
                         </div>
                         <br>
                         <% }) %>
@@ -36,11 +106,11 @@
                         <% leasesaleobj.leaseproperty.forEach(function(username){ %> 
                         <div class="leasegrid">
                             <p class="grid0"><img src="/uploads/<%=username.propertyimage%>" alt="image upload"></p>
-                            <p class="grid1">Name: <%=username.personname%></p>
-                            <p>Phone number: <%=username.personnumber%></p>
-                            <p>Property Type: <%=username.typeproperty%></p>
-                            <p>Property Name: <%=username.propertyname%></p>
-                            <p>Property Address: <%=username.propertynumber%>,
+                            <p><span class="spanstyle">Name: </span><%=username.personname%></p>
+                            <p><span class="spanstyle">Phone number: </span><%=username.personnumber%></p>
+                            <p><span class="spanstyle">Property Type: </span><%=username.typeproperty%></p>
+                            <p><span class="spanstyle">Property Name: </span><%=username.propertyname%></p>
+                            <p><span class="spanstyle">Property Address: </span><%=username.propertynumber%>,
                                 <%=username.propertyfloor%> floor,
                                 <%=username.propertyname%>,
                                 <%=username.propertyarea%>,
@@ -48,9 +118,80 @@
                                 <%=username.propertystate%>,
                                 <%=username.propertypincode%>.
                             </p>
-                            <p>Budget: <%=username.propertybudget%> Thousands.</p>
-                            <p>Rera Approved: <%=username.propertyreraapproved%></p>
-                            <p>Rera Number: <%=username.propertyreranumber%></p>
+                            <p><span class="spanstyle">Budget: </span><%=username.propertybudget%> Thousands.</p>
+                            <p><span class="spanstyle">Rera Approved: </span><%=username.propertyreraapproved%></p>
+                            <p><span class="spanstyle">Security Deposit: </span><%=username.propertysecuritydeposit%></p>
+                            <p><span class="spanstyle">Preference: </span><%=username.propertypreference%></p>
+                            <p><span class="spanstyle">Property Age: </span><%=username.propertyage%></p> 
+                            <p><span class="spanstyle">Negotaiation: </span><%=username.propertynegotiation%></p> 
+                            <p><span class="spanstyle">Number Of Rooms: </span><%=username.propertynumberrooms%></p> 
+                            <p><span class="spanstyle">Number Of Bathrooms: </span><%=username.propertynumberbathrooms%></p> 
+                            <p><span class="spanstyle">Property Sq Area: </span><%=username.propertysquarearea%></p>
+                            <p><span class="spanstyle">Property Facing: </span><%=username.propertyfacing%></p>
+                            <p class="customgrid"><span class="spanstyle">Near By:</span>
+                                <% username.propertynearby.forEach(function(element) { %>
+                                    <p>
+                                        <% if(element === "hospital") { %>
+                                            <img style="width: 25%;" src="/icon/hospital.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "school") { %>
+                                            <img style="width: 25%;" src="/icon/school.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "shoppingmall") { %>
+                                            <img style="width: 25%;" src="/icon/shoppingmall.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "carparking") { %>
+                                            <img style="width: 25%;" src="/icon/carparking.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "atm") { %>
+                                            <img style="width: 25%;" src="/icon/atm.svg" alt="icons">
+                                        <% } %>
+                                    </p>
+                                <% }) %>
+                            </p>
+                            <p class="customgrid"><span class="spanstyle">Amenities:</span>
+                                <% username.propertyamenities.forEach(function(element) { %>
+                                    <p>
+                                        <% if(element === "lift") { %>
+                                            <img style="width: 25%;" src="/icon/lift.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "garden") { %>
+                                            <img style="width: 25%;" src="/icon/garden.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "security") { %>
+                                            <img style="width: 25%;" src="/icon/security.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "clubhouse") { %>
+                                            <img style="width: 25%;" src="/icon/clubhouse.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "gymnasium") { %>
+                                            <img style="width: 25%;" src="/icon/gymnasium.svg" alt="icons">
+                                        <% } %>
+                                    </p>
+                                <% }) %>
+                            </p>
+                            <p class="customgrid"><span class="spanstyle">Furnishing:</span>
+                                <% username.propertyfurnishing.forEach(function(element) { %>
+                                    <p>
+                                        <% if(element === "wardrobe") { %>
+                                            <img style="width: 25%;" src="/icon/wardrobe.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "gasconnection") { %>
+                                            <img style="width: 25%;" src="/icon/gasconnection.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "dinning") { %>
+                                            <img style="width: 25%;" src="/icon/dinning.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "refrigerator") { %>
+                                            <img style="width: 25%;" src="/icon/refrigerator.svg" alt="icons">
+                                        <% } %>
+                                        <% if(element === "bed") { %>
+                                            <img style="width: 25%;" src="/icon/bed.svg" alt="icons">
+                                        <% } %>
+                                    </p>
+                                <% }) %>
+                            </p>
+
                         </div>
                         <br>
                         <% }) %>

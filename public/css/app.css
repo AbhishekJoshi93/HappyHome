@@ -342,11 +342,11 @@ input[type="password"]:focus{
     margin: 2% 0%;
 }
 
-.formsection .element input[type="number"]:focus{
+.element input[type="number"]:focus{
     outline: none;
 }
 
-.formsection .elementbtn button{
+.elementbtn button{
     font-family: 'Oswald', sans-serif;
     font-size: 150%;
     width: 25%;
@@ -360,7 +360,7 @@ input[type="password"]:focus{
     border: 2px solid #000;
 }
 
-.formsection .elementbtn button:hover{
+.elementbtn button:hover{
     color: #000;
     background-color: #eee;
 }
@@ -471,11 +471,16 @@ input{
 }
 
 .dashboardsection .leasegrid{
-    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border: 3px solid #bbb;
     border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     text-align: center;
+}
+
+.dashboardsection .leasegrid:hover{
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border: none;
 }
 
 .dashboardsection .leasegrid .grid1{
@@ -483,11 +488,16 @@ input{
 }
 
 .dashboardsection .salegrid{
-    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border: 3px solid #bbb;
     border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     text-align: center;
+}
+
+.dashboardsection .salegrid:hover{
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    border: none;
 }
 
 .dashboardsection .salegrid .grid1{
@@ -530,4 +540,21 @@ input{
 
 .inputvis{
     visibility: hidden;
+}
+
+.grid10{
+    grid-column: 1/4;
+}
+
+.customgrid{
+    grid-column: 1/4;
+}
+
+.spanstyle{
+    font-weight: 600;
+    font-size: 125%;
+}
+
+.grid1{
+    grid-column: 1/3;
 }
