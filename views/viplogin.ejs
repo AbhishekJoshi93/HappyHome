@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Home</title>
+    <link rel="shortcut icon" href="/icon/icon.svg" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+<script src="https://js.stripe.com/v3"></script>
+    <base href="/">
+</head>
+<body>
+<!-- Load Stripe.js on your website. -->
+
+<!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
+<button
+  style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
+  id="checkout-button-sku_HCqImvbBYnIrpP"
+  role="link"
+>
+  Checkout
+</button>
+
+<div id="error-message"></div>
+
+<script>
+(function() {
+  var stripe = Stripe('pk_test_43MKYI1qPCyAOa8qIyrT68ID00K881d9gO');
+
+  var checkoutButton = document.getElementById('checkout-button-sku_HCqImvbBYnIrpP');
+  checkoutButton.addEventListener('click', function () {
+    // When the customer clicks on the button, redirect
+    // them to Checkout.
+    stripe.redirectToCheckout({
+      items: [{sku: 'sku_HCqImvbBYnIrpP', quantity: 1}],
+
+      // Do not rely on the redirect to the successUrl for fulfilling
+      // purchases, customers may not always reach the success_url after
+      // a successful payment.
+      // Instead use one of the strategies described in
+      // https://stripe.com/docs/payments/checkout/fulfillment
+      successUrl: 'http://localhost:3341/home',
+      cancelUrl: 'http://localhost:3341/vip/viplogin',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

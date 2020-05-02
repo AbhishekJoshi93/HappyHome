@@ -1,4 +1,4 @@
-//jshint esversion:6
+//jshint esversion:8
 
 const express = require("express");
 const ejs = require("ejs");
@@ -8,6 +8,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const multer  = require('multer');
+const stripe = require('stripe')('sk_test_AbkZh2jDodAGhnLeivoXX61A005bFSQTYJ');
 
 const accountSid = 'AC0c395964073c8ef0a1f933549a7d9be7';
 const authToken = 'c299b7ccc96b4a4c40a133a1f31ce386';   
@@ -377,6 +378,28 @@ app.post("/interest", (req,res) => {
     }else{
         res.redirect("/");
     }
+});
+
+// app.get("/vip/viplogin", (req,res) => {
+    
+// });
+
+app.get("/vip/viplogin",async (req,res) => {
+    if(req.isAuthenticated()){
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: 1099,
+            currency: 'inr',
+            // Verify your integration in this guide by including this parameter
+            metadata: {integration_check: 'accept_a_payment'},
+          });
+        res.render(__dirname + "/views/viplogin.ejs");            
+    }else{
+        res.redirect("/");
+    }     
+});
+
+app.post("/vip/viplogin", (req,res) => {
+    res.redirect("/home");
 });
 
 app.listen("3341", () => {
