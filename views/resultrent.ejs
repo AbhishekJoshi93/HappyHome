@@ -8,8 +8,8 @@
                     <div class="mainsalegrid">
                         <% leaseobj.forEach(function(username0){ %>
                         <% username0.leaseproperty.forEach(function(username){ %>
-                            <div class="salegrid">
-                                <% if(username.typeproperty == typeofp){ if(username.propertyarea == areapro){ if(username.propertycity == citypro){ if(username.propertystate == statepro){ if(username.propertybudget <= budgetprotxt){ if(username.propertyfurnishingtype == furnishedpro){ %>
+                            <% if(username.typeproperty == typeofp){ if(username.propertyarea == areapro){ if(username.propertycity == citypro){ if(username.propertystate == statepro){ if(username.propertybudget <= budgetprotxt){ if(username.propertyfurnishingtype == furnishedpro){ %>
+                                <div class="salegrid">
     
                                 <p class="grid0"><img src="/uploads/<%=username.propertyimage%>" alt="image upload"></p>
                                 <p class="grid1"><span class="spanstyle">Name: </span><%=username.personname%></p>
@@ -35,6 +35,7 @@
                             <p><span class="spanstyle">Property Facing: </span><%=username.propertyfacing%></p>
                             <p class="customgrid"><span class="spanstyle">Near By:</span>
                                 <% username.propertynearby.forEach(function(element) { %>
+                                   <p>
                                     <% if(element === "hospital") { %>
                                         <img style="width: 25%;" src="/icon/hospital.svg" alt="icons">
                                     <% } %>
@@ -50,6 +51,7 @@
                                     <% if(element === "atm") { %>
                                         <img style="width: 25%;" src="/icon/atm.svg" alt="icons">
                                     <% } %>
+                                   </p>
                                 <% }) %>
                             </p>
                             <p class="customgrid"><span class="spanstyle">Amenities:</span>

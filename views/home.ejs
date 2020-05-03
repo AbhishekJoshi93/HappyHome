@@ -1,5 +1,43 @@
-<%- include("header") -%>
-<%- include("nav") -%>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Happy Home</title>
+    <link rel="shortcut icon" href="/icon/icon.svg" type="image/x-icon">
+    <base href="/">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+</head>
+
+<body>
+    <section class="loading">
+        <div class="loader">
+            <img src="/icon/icon.svg" alt="loading icon">
+        </div>
+    </section>
+    <section class="header">
+        <div class="navbar">
+            <div class="grid">
+                <a href="/home" class="links navitems">
+                    <li>Home</li>
+                </a>
+                <a href="/home/dashboard" class="links navitems">
+                    <li>Dashboard</li>
+                </a>
+                <li class="navitems navmain">HAPPY <span><img src="/icon/residential.svg" alt="residential logo"></span>
+                    HOME</li>
+                <a href="/vip/viplogin" class="links navitems">
+                    <li>VIP</li>
+                </a>
+                <a href="/logout" class="links navitems">
+                    <li>Log Out</li>
+                </a>
+            </div>
+        </div>
+        <hr class="headerline" size="0">
+    </section>
+
     <section class="homesearch">
         <div class="buysection">
             <div class="buyleft">
@@ -11,7 +49,9 @@
                         <img src="/image/house1.jfif" alt="house 1">
                     </div>
                     <div class="buyhomecontent">
-                        <p>Here you can buy your dream home from searching through our custom search and filters and then negotiation with owner through our chatting feature proceed by clicking button down here.</p>  
+                        <p>Here you can buy your dream home from searching through our custom search and filters and
+                            then negotiation with owner through our chatting feature proceed by clicking button down
+                            here.</p>
                         <a href="/home/buy" class="links"><button>Buy</button></a>
                     </div>
                 </div>
@@ -20,7 +60,9 @@
                         <img src="image/house2.jfif" alt="house 2">
                     </div>
                     <div class="buyrenthomecontent">
-                        <p>Here you can buy your dream home for rent from our custom search feature and then doing negotiation with the owner of rent through chatting feature proceed by clicking button down here.</p>
+                        <p>Here you can buy your dream home for rent from our custom search feature and then doing
+                            negotiation with the owner of rent through chatting feature proceed by clicking button down
+                            here.</p>
                         <a href="/home/rent" class="links"><button>Rent</button></a>
                     </div>
                 </div>
@@ -36,7 +78,9 @@
                         <img src="/image/house3.jfif" alt="house 3">
                     </div>
                     <div class="sellhomecontent">
-                        <p>Here you can place your listing for selling your own property by using custom types and amenities of your property and then after doing chatting you can sell other dream home to them proceed by clicking button down here.</p>
+                        <p>Here you can place your listing for selling your own property by using custom types and
+                            amenities of your property and then after doing chatting you can sell other dream home to
+                            them proceed by clicking button down here.</p>
                         <a href="/home/sale" class="links"><button>Sale</button></a>
                     </div>
                 </div>
@@ -45,12 +89,319 @@
                         <img src="/image/house4.jfif" alt="house 4">
                     </div>
                     <div class="sellrenthomecontent">
-                        <p>Here you can place your listing for lease your property with custom amenities of your home and then after doing chatting with the buyer through our chatting feature you can lease your place proceed by clicking button down here.</p>
+                        <p>Here you can place your listing for lease your property with custom amenities of your home
+                            and then after doing chatting with the buyer through our chatting feature you can lease your
+                            place proceed by clicking button down here.</p>
                         <a href="/home/lease" class="links"><button>Lease</button></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-<%- include("bar") -%>
-<%- include("footer") -%>
+    <!-- <section class="featuredsection"> -->
+            <h3 style="font-size: xx-large; margin-left: 10%;">Featured Properties <span><img
+                        src="/icon/residential.svg" alt="rental logo"></span></h3>
+
+            <section class="dashboardsection">
+                <div class="dashcontent">
+                    <div class="dashgrid">
+                        <div class="dashcontentcard">
+                            <h4>For Sale <span><img src="/icon/deal.svg" alt="deal logo"></span></h4>
+                            <h5 style="font-weight: 500;">* Scroll Down</h5>
+                            <div class="mainsalegrid">
+                                <div class="slidermaker">
+                                    <% viplist.forEach(function(username0){ %>
+                                    <div class="custommaker">
+                                        <% username0.saleproperty.forEach(function(username){ %>
+                                        <div class="salegrid" style="width: 70vw;">
+
+                                            <p class="grid0"><img src="/uploads/<%=username.propertyimage%>"
+                                                    alt="image upload"></p>
+                                            <p class="grid1"><span class="spanstyle">Name:
+                                                </span><%=username.personname%>(<%=username.personnumber%>)</p>
+                                            <p><span class="spanstyle">Property Type: </span><%=username.typeproperty%>
+                                            </p>
+                                            <p><span class="spanstyle">Property Name: </span><%=username.propertyname%>
+                                            </p>
+                                            <p><span class="spanstyle">Property Address:
+                                                </span><%=username.propertynumber%>,
+                                                <%=username.propertyfloor%> floor,
+                                                <%=username.propertyname%>,
+                                                <%=username.propertyarea%>,
+                                                <%=username.propertycity%>,
+                                                <%=username.propertystate%>,
+                                                <%=username.propertypincode%>.
+                                            </p>
+                                            <p><span class="spanstyle">Budget: </span><%=username.propertybudget%>
+                                                Lakhs.</p>
+                                            <p><span class="spanstyle">Rera Approved:
+                                                </span><%=username.propertyreraapproved%></p>
+                                            <p><span class="spanstyle">Rera Number:
+                                                </span><%=username.propertyreranumber%></p>
+                                            <p><span class="spanstyle">Negotaiation:
+                                                </span><%=username.propertynegotiation%></p>
+                                            <p><span class="spanstyle">Property Age: </span><%=username.propertyage%>
+                                            </p>
+                                            <p><span class="spanstyle">Negotaiation:
+                                                </span><%=username.propertynegotiation%></p>
+                                            <p><span class="spanstyle">Number Of Rooms:
+                                                </span><%=username.propertynumberrooms%></p>
+                                            <p><span class="spanstyle">Number Of Bathrooms:
+                                                </span><%=username.propertynumberbathrooms%></p>
+                                            <p><span class="spanstyle">Property Sq Area:
+                                                </span><%=username.propertysquarearea%></p>
+                                            <p><span class="spanstyle">Property Facing:
+                                                </span><%=username.propertyfacing%></p>
+                                            <p class="customgrid"><span class="spanstyle">Near By:</span>
+                                                <% username.propertynearby.forEach(function(element) { %>
+                                                <p>
+                                                    <% if(element === "hospital") { %>
+                                                    <img style="width: 25%;" src="/icon/hospital.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "school") { %>
+                                                    <img style="width: 25%;" src="/icon/school.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "shoppingmall") { %>
+                                                    <img style="width: 25%;" src="/icon/shoppingmall.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "carparking") { %>
+                                                    <img style="width: 25%;" src="/icon/carparking.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "atm") { %>
+                                                    <img style="width: 25%;" src="/icon/atm.svg" alt="icons">
+                                                    <% } %>
+                                                </p>
+                                                <% }) %>
+                                            </p>
+                                            <p class="customgrid"><span class="spanstyle">Amenities:</span>
+                                                <% username.propertyamenities.forEach(function(element) { %>
+                                                <p>
+                                                    <% if(element === "lift") { %>
+                                                    <img style="width: 25%;" src="/icon/lift.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "garden") { %>
+                                                    <img style="width: 25%;" src="/icon/garden.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "security") { %>
+                                                    <img style="width: 25%;" src="/icon/security.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "clubhouse") { %>
+                                                    <img style="width: 25%;" src="/icon/clubhouse.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "gymnasium") { %>
+                                                    <img style="width: 25%;" src="/icon/gymnasium.svg" alt="icons">
+                                                    <% } %>
+                                                </p>
+                                                <% }) %>
+                                            </p>
+                                            <p class="customgrid"><span class="spanstyle">Furnishing:</span>
+                                                <% username.propertyfurnishing.forEach(function(element) { %>
+                                                <p>
+                                                    <% if(element === "wardrobe") { %>
+                                                    <img style="width: 25%;" src="/icon/wardrobe.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "gasconnection") { %>
+                                                    <img style="width: 25%;" src="/icon/gasconnection.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "dinning") { %>
+                                                    <img style="width: 25%;" src="/icon/dinning.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "refrigerator") { %>
+                                                    <img style="width: 25%;" src="/icon/refrigerator.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "bed") { %>
+                                                    <img style="width: 25%;" src="/icon/bed.svg" alt="icons">
+                                                    <% } %>
+                                                </p>
+                                                <% }) %>
+                                            </p>
+                                            <div class="formsection grid10">
+                                                <div class="element">
+                                                    <form action="/interest" method="post" class="formsection">
+                                                        <label for="phoneno">Phone Number: </label>
+                                                        <input type="text" name="phoneno" class="input"
+                                                            placeholder="eg. 6353266085" style="width: 25%;">
+                                                        <br>
+                                                        <pre><b>* Enter phone number is delivered to property owner <br> with default interesed message for further communication.</b></pre>
+                                                        <div class="elementbtn">
+                                                            <button type="submit"
+                                                                style="width: 25%;">Interested</button>
+                                                        </div>
+                                                        <input type="text" name="refid" class="inputvis"
+                                                            value=<%=username.personnumber%>>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="justbreak">
+                                        </div>
+                                        <% }) %>
+                                        <br>
+                                    </div>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="dashboardsection">
+                <div class="dashcontent">
+                    <div class="dashgrid">
+                        <div class="dashcontentcard">
+                            <h4>For Lease <span><img src="/icon/deal.svg" alt="deal logo"></span></h4>
+                            <h5 style="font-weight: 500;">* Scroll Down</h5>
+                            <div class="mainsalegrid">
+                                <div class="slidermaker">
+                                    <% viplist.forEach(function(username0){ %>
+                                        <div class="custommaker" style="margin: 2%;">
+                                        <% username0.leaseproperty.forEach(function(username){ %>
+                                        <div class="salegrid" style="width: 70vw;">
+
+                                            <p class="grid0"><img src="/uploads/<%=username.propertyimage%>"
+                                                    alt="image upload"></p>
+                                            <p class="grid1"><span class="spanstyle">Name:
+                                                </span><%=username.personname%>(<%=username.personnumber%>)</p>
+                                            <p><span class="spanstyle">Property Type: </span><%=username.typeproperty%>
+                                            </p>
+                                            <p><span class="spanstyle">Property Name: </span><%=username.propertyname%>
+                                            </p>
+                                            <p><span class="spanstyle">Property Address:
+                                                </span><%=username.propertynumber%>,
+                                                <%=username.propertyfloor%> floor,
+                                                <%=username.propertyname%>,
+                                                <%=username.propertyarea%>,
+                                                <%=username.propertycity%>,
+                                                <%=username.propertystate%>,
+                                                <%=username.propertypincode%>.
+                                            </p>
+                                            <p><span class="spanstyle">Budget: </span><%=username.propertybudget%>
+                                                Thousands.</p>
+                                            <p><span class="spanstyle">Rera Approved:
+                                                </span><%=username.propertyreraapproved%></p>
+                                            <p><span class="spanstyle">Security Deposit:
+                                                </span><%=username.propertysecuritydeposit%></p>
+                                            <p><span class="spanstyle">Preference:
+                                                </span><%=username.propertypreference%></p>
+                                            <p><span class="spanstyle">Property Age: </span><%=username.propertyage%>
+                                            </p>
+                                            <p><span class="spanstyle">Negotaiation:
+                                                </span><%=username.propertynegotiation%></p>
+                                            <p><span class="spanstyle">Number Of Rooms:
+                                                </span><%=username.propertynumberrooms%></p>
+                                            <p><span class="spanstyle">Number Of Bathrooms:
+                                                </span><%=username.propertynumberbathrooms%></p>
+                                            <p><span class="spanstyle">Property Sq Area:
+                                                </span><%=username.propertysquarearea%></p>
+                                            <p><span class="spanstyle">Property Facing:
+                                                </span><%=username.propertyfacing%></p>
+                                            <p class="customgrid"><span class="spanstyle">Near By:</span>
+                                                <% username.propertynearby.forEach(function(element) { %>
+                                                <p>
+                                                    <% if(element === "hospital") { %>
+                                                    <img style="width: 25%;" src="/icon/hospital.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "school") { %>
+                                                    <img style="width: 25%;" src="/icon/school.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "shoppingmall") { %>
+                                                    <img style="width: 25%;" src="/icon/shoppingmall.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "carparking") { %>
+                                                    <img style="width: 25%;" src="/icon/carparking.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "atm") { %>
+                                                    <img style="width: 25%;" src="/icon/atm.svg" alt="icons">
+                                                    <% } %>
+                                                </p>
+                                                <% }) %>
+                                            </p>
+                                            <p class="customgrid"><span class="spanstyle">Amenities:</span>
+                                                <% username.propertyamenities.forEach(function(element) { %>
+                                                <p>
+                                                    <% if(element === "lift") { %>
+                                                    <img style="width: 25%;" src="/icon/lift.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "garden") { %>
+                                                    <img style="width: 25%;" src="/icon/garden.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "security") { %>
+                                                    <img style="width: 25%;" src="/icon/security.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "clubhouse") { %>
+                                                    <img style="width: 25%;" src="/icon/clubhouse.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "gymnasium") { %>
+                                                    <img style="width: 25%;" src="/icon/gymnasium.svg" alt="icons">
+                                                    <% } %>
+                                                </p>
+                                                <% }) %>
+                                            </p>
+                                            <p class="customgrid"><span class="spanstyle">Furnishing:</span>
+                                                <% username.propertyfurnishing.forEach(function(element) { %>
+                                                <p>
+                                                    <% if(element === "wardrobe") { %>
+                                                    <img style="width: 25%;" src="/icon/wardrobe.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "gasconnection") { %>
+                                                    <img style="width: 25%;" src="/icon/gasconnection.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "dinning") { %>
+                                                    <img style="width: 25%;" src="/icon/dinning.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "refrigerator") { %>
+                                                    <img style="width: 25%;" src="/icon/refrigerator.svg" alt="icons">
+                                                    <% } %>
+                                                    <% if(element === "bed") { %>
+                                                    <img style="width: 25%;" src="/icon/bed.svg" alt="icons">
+                                                    <% } %>
+                                                </p>
+                                                <% }) %>
+                                            </p>
+
+                                            <div class="formsection grid10">
+                                                <div class="element">
+                                                    <form action="/interest" method="post" class="formsection">
+                                                        <label for="phoneno">Phone Number: </label>
+                                                        <input type="text" name="phoneno" class="input"
+                                                            placeholder="eg. 6353266085" style="width: 25%;">
+                                                        <br>
+                                                        <pre><b>* Enter phone number is delivered to property owner <br> with default interesed message for further communication.</b></pre>
+                                                        <div class="elementbtn">
+                                                            <button type="submit"
+                                                                style="width: 25%;">Interested</button>
+                                                        </div>
+                                                        <input type="text" name="refid" class="inputvis"
+                                                            value=<%=username.personnumber%>>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="justbreak" style="height: 8vh;">
+                                        </div>
+                                        <% }) %>
+                                        <br>
+                                    </div>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    <!-- </section> -->
+    <section class="footer">
+        <hr class="footerline" size="0">
+        <div class="content">
+            <p>Copyright <span><img src="/icon/icon.svg" alt="happyhomeicon"></span> Happy Home @2020</p>
+        </div>
+    </section>
+    <script type="text/javascript">
+        $(window).on("load", () => {
+            $(".loader").fadeOut("slow");
+        });
+        $('input').attr('autocomplete', 'off');
+    </script>
+</body>
+
+</html>

@@ -10,11 +10,13 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const multer  = require('multer');
 const stripe = require('stripe')('sk_test_AbkZh2jDodAGhnLeivoXX61A005bFSQTYJ');
+const dotenv = require('dotenv').config();
 
-const accountSid = 'AC0c395964073c8ef0a1f933549a7d9be7';
-const authToken = 'c299b7ccc96b4a4c40a133a1f31ce386';   
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTH_TOKEN;   
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
+
 
 
 var storage = multer.diskStorage({
@@ -109,6 +111,7 @@ const salepropertySchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     email: String, 
     password: String,
+    vipacc: { type: Boolean, default: false },
     saleproperty: [salepropertySchema],
     leaseproperty: [leasepropertySchema]
 });
@@ -171,7 +174,11 @@ app.get("/logout", (req,res) => {
 
 app.get("/home", (req,res) => {
     if(req.isAuthenticated()){
-        res.render(__dirname + "/views/home.ejs");
+
+        User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+            res.render(__dirname + "/views/home.ejs",{viplist: result});
+        });
+
     }else{
         res.redirect("/");
     }
@@ -373,7 +380,7 @@ app.post("/interest", (req,res) => {
         client.messages.create({
             body: 'Hello I m interested in your listing on Happy Home. And for further meetings contact me on ' + req.body.phoneno,
             to: '+91 ' + req.body.refid,
-            from: '+13214504842'
+            from: process.env.PHONE_NO
         }).then((message) => console.log(message.sid));
         res.render(__dirname + "/views/message.ejs");
     }else{
@@ -381,27 +388,39 @@ app.post("/interest", (req,res) => {
     }
 });
 
-// app.get("/vip/viplogin", (req,res) => {
-    
-// });
-
 app.get("/vip/viplogin",async (req,res) => {
     if(req.isAuthenticated()){
         const paymentIntent = await stripe.paymentIntents.create({
             amount: 1099,
             currency: 'inr',
-            // Verify your integration in this guide by including this parameter
             metadata: {integration_check: 'accept_a_payment'},
           });
-        res.render(__dirname + "/views/viplogin.ejs");            
+        res.render(__dirname + "/views/viplogin.ejs",{email: req.user.username});            
     }else{
         res.redirect("/");
     }     
 });
 
-app.post("/vip/viplogin", (req,res) => {
-    res.redirect("/home");
+app.get("/home/successvip", (req,res) => {
+    if(req.isAuthenticated()){
+
+        User.findById(req.user.id, function(err,foundUser){
+            if(err){
+                console.log(err);
+            }else{
+                if(foundUser){
+                    foundUser.vipacc = true;
+                    foundUser.save(function(){
+                        res.redirect("/home");
+                    });
+                }
+            }
+        });
+    }else{
+        res.redirect("/");
+    }
 });
+
 
 app.listen("3341", () => {
     console.log("Server is serving");
