@@ -3,6 +3,10 @@
             $(".loader").fadeOut("slow");
         });
         $('input').attr('autocomplete','off');
+        $("#file-upload").change(function(){
+            $("#file-name").text(this.files[0].name);
+        });
+        
     </script>
 </body>
 </html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Happy Home</title>
+    <link rel="shortcut icon" href="/icon/icon.svg" type="image/x-icon">
+    <base href="/">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+</head>
+  <body>
+    <section class="loading">
+        <div class="loader">
+            <img src="/icon/icon.svg" alt="loading icon">
+        </div>
+    </section>
+    <section class="header">
+        <div class="navbar">
+            <div class="grid">
+                <a href="/home" class="links navitems"><li>Home</li></a>
+                <a href="/home/dashboard" class="links navitems"><li>Dashboard</li></a>
+                <a href="/vip/viplogin" class="links navitems"><li>VIP</li></a>
+                <li class="navitems navmain">HAPPY <span><img src="/icon/residential.svg" alt="residential logo"></span> HOME</li>
+                <a href="/message" class="links navitems"><li>Chat</li></a>
+                <a href="/aboutus" class="links navitems"><li>About Us</li></a>
+                <a href="/logout" class="links navitems"><li>Log Out</li></a>
+            </div>
+        </div>
+        <hr class="headerline" size="0">
+    </section>
+    <div class="chat-container">
+      <header class="chat-header">
+        <h1><i class="fas fa-smile"></i> ChatCord</h1>
+        <a href="/message" class="btn">Leave Room</a>
+      </header>
+      <main class="chat-main">
+        <div class="chat-sidebar">
+          <h3><i class="fas fa-comments"></i> Room Name:</h3>
+          <h2 id="room-name" style="color: black;"></h2>
+          <h3><i class="fas fa-users"></i> Users</h3>
+          <ul id="users" style="color: black;"></ul>
+        </div>
+        <div class="chat-messages"></div>
+      </main>
+      <div class="chat-form-container">
+        <form id="chat-form">
+          <input
+            id="msg"
+            type="text"
+            placeholder="Enter Message"
+            required
+            autocomplete="off"
+          />
+          <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+        </form>
+      </div>
+    </div>
+    <section class="footer">
+        <hr class="footerline" size="0">
+        <div class="content">
+            <p>Copyright <span><img src="/icon/icon.svg" alt="happyhomeicon"></span> Happy Home @2020</p>
+        </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/main.js"></script>
+    <script type="text/javascript">
+        $(window).on("load", () => {
+            $(".loader").fadeOut("slow");
+        });
+        $('input').attr('autocomplete', 'off');
+    </script>
+
+  </body>
+</html>

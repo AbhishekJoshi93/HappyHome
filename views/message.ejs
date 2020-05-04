@@ -1,5 +1,78 @@
-<%- include("header") -%>
-<%- include("nav") -%>
+<!DOCTYPE html>
+<html>
 
-<%- include("bar") -%>
-<%- include("footer") -%>
+<head>
+    <title>Happy Home</title>
+    <link rel="shortcut icon" href="/icon/icon.svg" type="image/x-icon">
+    <base href="/">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+</head>
+	<body>
+        <section class="loading">
+            <div class="loader">
+                <img src="/icon/icon.svg" alt="loading icon">
+            </div>
+        </section>
+        <section class="header">
+            <div class="navbar">
+                <div class="grid">
+                    <a href="/home" class="links navitems"><li>Home</li></a>
+                    <a href="/home/dashboard" class="links navitems"><li>Dashboard</li></a>
+                    <a href="/vip/viplogin" class="links navitems"><li>VIP</li></a>
+                    <li class="navitems navmain">HAPPY <span><img src="/icon/residential.svg" alt="residential logo"></span> HOME</li>
+                    <a href="/message" class="links navitems"><li>Chat</li></a>
+                    <a href="/aboutus" class="links navitems"><li>About Us</li></a>
+                    <a href="/logout" class="links navitems"><li>Log Out</li></a>
+                </div>
+            </div>
+            <hr class="headerline" size="0">
+        </section>
+		<div class="join-container">
+			<header class="join-header">
+				<h1><i class="fas fa-smile"></i> ChatCord</h1>
+			</header>
+			<main class="join-main">
+				<form action="/chat" method="GET">
+					<div class="form-control">
+						<label for="username">Username</label>
+						<input
+							type="text"
+							name="username"
+							id="username"
+							placeholder="Enter username..."
+							required
+						/>
+					</div>
+					<div class="form-control">
+						<label for="room">Room</label>
+						<select name="room" id="room">
+							<option value="JavaScript">JavaScript</option>
+							<option value="Python">Python</option>
+							<option value="PHP">PHP</option>
+							<option value="C#">C#</option>
+							<option value="Ruby">Ruby</option>
+							<option value="Java">Java</option>
+						</select>
+					</div>
+					<button type="submit" class="btn">Join Chat</button>
+				</form>
+			</main>
+        </div>
+        <section class="footer">
+            <hr class="footerline" size="0">
+            <div class="content">
+                <p>Copyright <span><img src="/icon/icon.svg" alt="happyhomeicon"></span> Happy Home @2020</p>
+            </div>
+        </section>
+        <script type="text/javascript">
+            $(window).on("load", () => {
+                $(".loader").fadeOut("slow");
+            });
+            $('input').attr('autocomplete', 'off');
+        </script>
+    
+	</body>
+</html>

@@ -11,13 +11,27 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const multer  = require('multer');
 const stripe = require('stripe')('sk_test_AbkZh2jDodAGhnLeivoXX61A005bFSQTYJ');
 const dotenv = require('dotenv').config();
+// const http = require('http');
+// const socketio = require('socket.io');
+const formatMessage = require('./utils/messages');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('./utils/users');
+
+const app = express();
 
 const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;   
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
-
-
+// const server = http.createServer(app);
+// const io = socketio(server);
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+const botName = 'ChatCord Bot';
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -30,7 +44,6 @@ var storage = multer.diskStorage({
    
 var upload = multer({ storage: storage });
 
-const app = express();
 app.use(express.static(__dirname + "/public"));
 app.set("view engine","ejs");
 app.use(bodyParser.json());
@@ -421,7 +434,75 @@ app.get("/home/successvip", (req,res) => {
     }
 });
 
+app.get("/message", (req,res) => {
+    if(req.isAuthenticated()){
+        res.render(__dirname + "/views/message.ejs");  
+    }else{
+        res.redirect("/");
+    }
+});
 
-app.listen("3341", () => {
+       
+io.on('connection', socket => {
+    console.log("running");
+    
+    socket.on('joinRoom', ({ username, room }) => {
+        const user = userJoin(socket.id, username, room);
+        
+        socket.join(user.room);
+        
+        // Welcome current user
+        socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+        
+        // Broadcast when a user connects
+        socket.broadcast
+        .to(user.room)
+        .emit(
+            'message',
+            formatMessage(botName, `${user.username} has joined the chat`)
+            );
+            
+            // Send users and room info
+            io.to(user.room).emit('roomUsers', {
+                room: user.room,
+                users: getRoomUsers(user.room)
+            });
+        });
+        
+        // Listen for chatMessage
+        socket.on('chatMessage', msg => {
+            const user = getCurrentUser(socket.id);
+            
+            io.to(user.room).emit('message', formatMessage(user.username, msg));
+        });
+        
+        // Runs when client disconnects
+        socket.on('disconnect', () => {
+            const user = userLeave(socket.id);
+            
+            if (user) {
+                io.to(user.room).emit(
+                    'message',
+                    formatMessage(botName, `${user.username} has left the chat`)
+                    );
+                    
+                    // Send users and room info
+                    io.to(user.room).emit('roomUsers', {
+                        room: user.room,
+                        users: getRoomUsers(user.room)
+                    });
+                }
+            });
+        });
+
+app.get("/chat", (req,res) => {
+    if(req.isAuthenticated()){
+            res.render(__dirname + "/views/chat.ejs");             
+            }else{
+        res.redirect("/");
+    }
+});
+
+server.listen("3000", () => {
     console.log("Server is serving");
 });
