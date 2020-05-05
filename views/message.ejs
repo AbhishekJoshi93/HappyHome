@@ -30,35 +30,39 @@
             </div>
             <hr class="headerline" size="0">
         </section>
-		<div class="join-container">
+
+		<div class="join-container formsection" style="margin-top: -1%; margin-bottom: -0.2%;">
 			<header class="join-header">
-				<h1><i class="fas fa-smile"></i> ChatCord</h1>
+				<h1>Chat Room</h1>
 			</header>
 			<main class="join-main">
-				<form action="/chat" method="GET">
+				<form>
 					<div class="form-control">
 						<label for="username">Username</label>
 						<input
 							type="text"
 							name="username"
 							id="username"
-							placeholder="Enter username..."
-							required
+                            placeholder="Enter username..."
+                            value=<%=email%>
 						/>
 					</div>
 					<div class="form-control">
-						<label for="room">Room</label>
-						<select name="room" id="room">
-							<option value="JavaScript">JavaScript</option>
-							<option value="Python">Python</option>
-							<option value="PHP">PHP</option>
-							<option value="C#">C#</option>
-							<option value="Ruby">Ruby</option>
-							<option value="Java">Java</option>
-						</select>
-					</div>
-					<button type="submit" class="btn">Join Chat</button>
-				</form>
+                        <label for="room">Room</label>
+                        <input
+							type="text"
+							name="room"
+							id="room"
+                            placeholder="Enter room id..."
+                            value=<%=roomid%>
+						/>
+                    </div>
+                    <div class="elementbtn" style="width: 60%;">
+                        <button type="submit" formaction="/message" formmethod="POST" class="btn">Create Room</button>
+                        <button type="submit" formaction="/add" formmethod="POST" class="btn">Join Room</button>
+                        <button type="submit" formaction="/chat" formmethod="GET" class="btn">Join Chat</button>
+                    </div>
+                </form>
 			</main>
         </div>
         <section class="footer">

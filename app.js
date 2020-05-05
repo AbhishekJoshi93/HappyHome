@@ -1,5 +1,4 @@
 //jshint esversion:8
-//main file
 
 const express = require("express");
 const ejs = require("ejs");
@@ -11,8 +10,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const multer  = require('multer');
 const stripe = require('stripe')('sk_test_AbkZh2jDodAGhnLeivoXX61A005bFSQTYJ');
 const dotenv = require('dotenv').config();
-// const http = require('http');
-// const socketio = require('socket.io');
 const formatMessage = require('./utils/messages');
 const {
   userJoin,
@@ -20,6 +17,7 @@ const {
   userLeave,
   getRoomUsers
 } = require('./utils/users');
+const moment = require('moment');
 
 const app = express();
 
@@ -27,11 +25,9 @@ const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;   
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
-// const server = http.createServer(app);
-// const io = socketio(server);
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
-const botName = 'ChatCord Bot';
+const botName = 'Chat Room Bot';
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -126,12 +122,27 @@ const userSchema = new mongoose.Schema({
     password: String,
     vipacc: { type: Boolean, default: false },
     saleproperty: [salepropertySchema],
-    leaseproperty: [leasepropertySchema]
+    leaseproperty: [leasepropertySchema],
 });
+
+const chatSchema = new mongoose.Schema({
+    chatusername: String,
+    chatusermsg: String,
+    chattime: String
+});
+
+const messageSchema = new mongoose.Schema({
+    username: String,
+    users: Array,
+    roomid: String,
+    chat: [chatSchema]
+});
+
 
 userSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
+const Msg = new mongoose.model("Msg", messageSchema);
 
 passport.use(User.createStrategy());
 
@@ -391,11 +402,11 @@ app.get("/home/dashboard", (req,res) => {
 app.post("/interest", (req,res) => {
     if(req.isAuthenticated()){
         client.messages.create({
-            body: 'Hello I m interested in your listing on Happy Home. And for further meetings contact me on ' + req.body.phoneno,
+            body: 'Hello I m interested in your listing on Happy Home. And for further meetings contact me with this room id in chat section => ' + req.body.roomid,
             to: '+91 ' + req.body.refid,
             from: process.env.PHONE_NO
         }).then((message) => console.log(message.sid));
-        res.render(__dirname + "/views/message.ejs");
+        res.redirect("/home");
     }else{
         res.redirect("/");
     }
@@ -434,71 +445,147 @@ app.get("/home/successvip", (req,res) => {
     }
 });
 
+io.on('connection', socket => {
+    socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+    
+    socket.join(user.room);
+    
+    Msg.find({roomid: user.room},'chat',function(err,foundMsg){
+        if(err){
+            console.log(err);
+        }else{
+            if(foundMsg){
+                foundMsg[0].chat.forEach(element => {
+                    io.to(user.room).emit('message', formatMessage(element.chatusername, element.chatusermsg, element.chattime));
+                });
+            }
+        }
+    });
+
+    // Welcome current user
+    socket.emit('message', formatMessage(botName, 'Welcome to Chat Room!', moment().format('h:mm a')));
+    
+    // Broadcast when a user connects
+    socket.broadcast
+    .to(user.room)
+    .emit(
+        'message',
+        formatMessage(botName, `${user.username} has joined the chat`, moment().format('h:mm a'))
+        );
+        
+        // Send users and room info
+        io.to(user.room).emit('roomUsers', {
+            room: user.room,
+            users: getRoomUsers(user.room)
+
+        });
+    });
+    
+    // Listen for chatMessage
+    socket.on('chatMessage', msg => {
+        const user = getCurrentUser(socket.id);
+        
+        const bodydata = {
+            chatusername: user.username,
+            chatusermsg: msg,
+            chattime: moment().format('h:mm a')
+        };
+
+        Msg.find({roomid: user.room},function(err,foundRoomToAdd){
+            if(err){
+                console.log(err);
+            }else{
+                if(foundRoomToAdd){
+                    foundRoomToAdd[0].chat.push(bodydata);
+                    foundRoomToAdd[0].save(function(err){
+                        if(err){
+                            console.log(err);
+                        }
+                        io.to(user.room).emit('message', formatMessage(user.username, msg, moment().format('h:mm a')));
+                    });
+                }
+            }
+        });
+    });
+    
+    // Runs when client disconnects
+    
+    socket.on('disconnect', () => {
+        const user = userLeave(socket.id);
+        
+        if (user) {
+            io.to(user.room).emit(
+                'message',
+                formatMessage(botName, `${user.username} has left the chat`, moment().format('h:mm a'))
+                );
+                
+                // Send users and room info
+                io.to(user.room).emit('roomUsers', {
+                    room: user.room,
+                    users: getRoomUsers(user.room)
+                });
+            }
+        });
+    });
+        
 app.get("/message", (req,res) => {
     if(req.isAuthenticated()){
-        res.render(__dirname + "/views/message.ejs");  
+        res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: "EnterRoom"});  
     }else{
         res.redirect("/");
     }
 });
 
-       
-io.on('connection', socket => {
-    console.log("running");
-    
-    socket.on('joinRoom', ({ username, room }) => {
-        const user = userJoin(socket.id, username, room);
-        
-        socket.join(user.room);
-        
-        // Welcome current user
-        socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
-        
-        // Broadcast when a user connects
-        socket.broadcast
-        .to(user.room)
-        .emit(
-            'message',
-            formatMessage(botName, `${user.username} has joined the chat`)
-            );
-            
-            // Send users and room info
-            io.to(user.room).emit('roomUsers', {
-                room: user.room,
-                users: getRoomUsers(user.room)
-            });
+app.post("/message", (req,res) => {
+    if(req.isAuthenticated()){
+        const msg = new Msg({
+            username: Date.now(),
+            roomid: req.body.room
         });
-        
-        // Listen for chatMessage
-        socket.on('chatMessage', msg => {
-            const user = getCurrentUser(socket.id);
-            
-            io.to(user.room).emit('message', formatMessage(user.username, msg));
+        msg.save(function(err,ms){
+            if(err){
+                console.log(err);
+            }else{
+                if(ms){
+                    res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: req.body.room});
+                }    
+            }
         });
-        
-        // Runs when client disconnects
-        socket.on('disconnect', () => {
-            const user = userLeave(socket.id);
-            
-            if (user) {
-                io.to(user.room).emit(
-                    'message',
-                    formatMessage(botName, `${user.username} has left the chat`)
-                    );
-                    
-                    // Send users and room info
-                    io.to(user.room).emit('roomUsers', {
-                        room: user.room,
-                        users: getRoomUsers(user.room)
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/add", (req,res) => {
+    if(req.isAuthenticated()){
+        Msg.find({roomid: req.body.room}, function(err,foundRoom){
+            if(err){
+                console.log(err);
+            }else{
+                if(foundRoom.length===0){
+                    res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: "NotFound"});
+                }
+                else if(foundRoom){
+                    foundRoom[0].users.push(req.body.username);
+                    foundRoom[0].save(function(err){
+                        if(err){
+                            console.log(err);
+                        }
+                            res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: req.body.room});
                     });
                 }
-            });
+            }
         });
+    }else{
+        res.redirect("/");
+    }
+});
 
 app.get("/chat", (req,res) => {
     if(req.isAuthenticated()){
-            res.render(__dirname + "/views/chat.ejs");             
-            }else{
+        res.render(__dirname + "/views/chat.ejs");  
+    }else{
         res.redirect("/");
     }
 });

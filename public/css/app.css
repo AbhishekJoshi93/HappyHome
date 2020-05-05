@@ -594,7 +594,7 @@ input{
 
 .chat-container {
 	max-width: 1100px;
-	margin: 30px auto;
+	margin: -1% auto;
 	overflow: hidden;
 }
 
@@ -618,30 +618,40 @@ input{
 }
 
 .chat-sidebar h2 {
-	font-size: 20px;
-	background: rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
 	padding: 10px;
-	margin-bottom: 20px;
+    margin-bottom: 20px;
+    font-family: 'EB Garamond', serif;
+    font-size: 150%;
 }
 
 .chat-sidebar h3 {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .chat-sidebar ul li {
-	padding: 10px 0;
+    font-family: 'EB Garamond', serif;
+    font-size: 125%;
+}
+
+.chat-sidebar ul{
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
 }
 
 .chat-messages {
 	padding: 30px;
 	max-height: 500px;
-	overflow-y: scroll;
+    overflow-y: scroll;
+    font-family: 'EB Garamond', serif;
+    font-size: 125%;
 }
 
 .chat-messages .message {
 	padding: 10px;
 	margin-bottom: 15px;
-	border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
 }
 
 .chat-messages .message .meta {
@@ -660,6 +670,16 @@ input{
 }
 
 .chat-form-container input[type='text'] {
+    border: 3px solid #bbb;
+    outline: none;
+    font-family: 'EB Garamond', serif;
+    color: #000;
+    border-radius: 10px;
+    padding: 0.5%;
+    font-size: 20px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
 	font-size: 16px;
 	padding: 5px;
 	height: 40px;
@@ -692,12 +712,19 @@ input{
 }
 
 .join-main label {
-	display: block;
-	margin-bottom: 5px;
+    display: block;
+    margin-bottom: 5px;
+    font-size: x-large;
 }
 
 .join-main input[type='text'] {
-	font-size: 16px;
+    border: 3px solid #bbb;
+    outline: none;
+    font-family: 'EB Garamond', serif;
+    color: #000;
+    border-radius: 10px;
+    padding: 0.5%;
+    font-size: 20px;
 	padding: 5px;
 	height: 40px;
 	width: 100%;
