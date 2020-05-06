@@ -33,7 +33,7 @@
 
 		<div class="join-container formsection" style="margin-top: -1%; margin-bottom: -0.2%;">
 			<header class="join-header">
-				<h1>Chat Room</h1>
+        <h1><span><img src="/icon/chat.svg" alt="chat logo"></span>Chat Room<span><img src="/icon/chat.svg" alt="chat logo"></span></h1>
 			</header>
 			<main class="join-main">
 				<form>
@@ -57,7 +57,7 @@
                             value=<%=roomid%>
 						/>
                     </div>
-                    <div class="elementbtn" style="width: 60%;">
+                    <div class="elementbtn chatbuttongrid" style="width: 60%;">
                         <button type="submit" formaction="/message" formmethod="POST" class="btn">Create Room</button>
                         <button type="submit" formaction="/add" formmethod="POST" class="btn">Join Room</button>
                         <button type="submit" formaction="/chat" formmethod="GET" class="btn">Join Chat</button>

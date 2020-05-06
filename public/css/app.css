@@ -607,6 +607,11 @@ input{
 	justify-content: space-between;
 }
 
+.chat-header img{
+    width: 10%;
+    margin: 1%;
+}
+
 .chat-main {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
@@ -641,16 +646,12 @@ input{
 
 .chat-messages {
 	padding: 30px;
-	max-height: 500px;
+    max-height: 500px;
+    margin-bottom: 4%;
+    margin-right: 3%;
     overflow-y: scroll;
     font-family: 'EB Garamond', serif;
     font-size: 125%;
-}
-
-.chat-messages .message {
-	padding: 10px;
-	margin-bottom: 15px;
-    border-radius: 5px;
     box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
 }
 
@@ -662,7 +663,7 @@ input{
 }
 
 .chat-form-container {
-	padding: 20px 30px;
+	padding: 10px 15px;
 }
 
 .chat-form-container form {
@@ -689,7 +690,7 @@ input{
 /* Join Page */
 .join-container {
 	max-width: 500px;
-	margin: 80px auto;
+    margin: 80px auto;
 }
 
 .join-header {
@@ -697,6 +698,11 @@ input{
 	padding: 20px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+}
+
+.join-header img{
+    width: 10%;
+    margin: 1%;
 }
 
 .join-main {
@@ -740,4 +746,12 @@ input{
 .join-main .btn {
 	margin-top: 20px;
 	width: 100%;
+}
+
+.chatbuttongrid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5%;
+    margin-top: -5%;
+    margin-left: 15%;
 }

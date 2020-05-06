@@ -85,7 +85,8 @@ const leasepropertySchema = new mongoose.Schema({
     propertyamenities: Array,
     propertyfurnishing: Array,
     propertytime: Number,
-    propertyimage: String    
+    propertyimage: String,
+    leaselike: Number,    
 });
 
 const salepropertySchema = new mongoose.Schema({
@@ -114,7 +115,8 @@ const salepropertySchema = new mongoose.Schema({
     propertynearby: Array,
     propertyamenities: Array,
     propertyfurnishing: Array,
-    propertyimage: String    
+    propertyimage: String,
+    salelike: Number,   
 });
 
 const userSchema = new mongoose.Schema({
@@ -154,7 +156,7 @@ app.get("/", (req,res) => {
 });
 
 app.get("/login", (req,res) => {
-    res.render(__dirname + "/views/login.ejs");
+    res.render(__dirname + "/views/login.ejs", {err:"Welcome Back"});
 });
 
 app.post("/login", (req,res) => {
@@ -165,27 +167,34 @@ app.post("/login", (req,res) => {
 
     req.login(user, (err) => {
         if(err){
-            res.redirect("/");
+            res.render(__dirname + "/views/login.ejs", {err:err.name});
         }else{
                 passport.authenticate("local")(req,res, function(){
-                res.redirect("/home");
+                    if(err){
+                        console.log(err);
+                    res.render(__dirname + "/views/login.ejs", {err:err.name});
+                    }
+                User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                    res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull Login"});
+                });
             });
         }
     });
 });
 
 app.get("/register", (req,res) => {
-    res.render(__dirname + "/views/register.ejs");
+    res.render(__dirname + "/views/register.ejs", {err:"Hello New User"});
 });
 
 app.post("/register", (req,res) => {
     User.register({username: req.body.username}, req.body.password, function(err,user) {
         if(err){
-            console.log(err);
-            res.redirect("/register");
+            console.log(err.name);
+            // res.redirect("/register");
+            res.render(__dirname + "/views/register.ejs", {err:err.name});
         }else{
             passport.authenticate("local")(req,res, function(){
-                res.redirect("/login");
+            res.render(__dirname + "/views/login.ejs", {err:"Enter Again"});
             });
         }
     });
@@ -200,7 +209,7 @@ app.get("/home", (req,res) => {
     if(req.isAuthenticated()){
 
         User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
-            res.render(__dirname + "/views/home.ejs",{viplist: result});
+                res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Hey " + req.user.username});
         });
 
     }else{
@@ -462,9 +471,9 @@ io.on('connection', socket => {
             }
         }
     });
-
+    
     // Welcome current user
-    socket.emit('message', formatMessage(botName, 'Welcome to Chat Room!', moment().format('h:mm a')));
+    socket.emit('message', formatMessage(botName, 'Welcome to Chat Room!', " "));
     
     // Broadcast when a user connects
     socket.broadcast
