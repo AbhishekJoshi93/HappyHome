@@ -97,6 +97,19 @@
                                     </p>
                                 <% }) %>
                             </p>
+                            
+                            <div class="formsection grid10">
+                                <div class="element" style="margin-bottom: 2%;">
+                                    <form class="formsection">
+                                        <div class="elementbtn">
+                                            <button type="submit" formaction="/deleteproperty" formmethod="POST" style="width: 25%; margin-bottom: -5%;" onfocus="alertify.confirm('Delete', 'Are you sure to delete this property then it cannot be restore back', function(){ alertify.error('Click One More Time') }, function(){ alertify.error('Cancel')});">Delete Property</button>
+                                            <button type="submit" formaction="/soldproperty" formmethod="POST" style="width: 25%;" onfocus="alertify.confirm('Sold', 'Wow your property is sold now this property is not gone seen any every on website', function(){ alertify.error('Click One More Time') }, function(){ alertify.error('Cancel')});">Wow Sold</button>
+                                            <input type="text" name="refid" class="inputvis" value=<%=username._id%>>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
                         <br>
                         <% }) %>
@@ -191,6 +204,18 @@
                                     </p>
                                 <% }) %>
                             </p>
+
+                            <div class="formsection grid10">
+                                <div class="element" style="margin-bottom: 2%;">
+                                    <form class="formsection">
+                                        <div class="elementbtn">
+                                            <button type="submit" formaction="/deletepropertylease" formmethod="POST" style="width: 25%; margin-bottom: -5%;" onfocus="alertify.confirm('Delete', 'Are you sure to delete this property then it cannot be restore back', function(){ alertify.error('Click One More Time') }, function(){ alertify.error('Cancel')});">Delete Property</button>
+                                            <button type="submit" formaction="/soldpropertylease" formmethod="POST" style="width: 25%;" onfocus="alertify.confirm('Lease', 'Wow your property is lease now this property is not gone seen any every on website', function(){ alertify.error('Click One More Time') }, function(){ alertify.error('Cancel')});">Wow Lease</button>
+                                            <input type="text" name="refid" class="inputvis" value=<%=username._id%>>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
 
                         </div>
                         <br>

@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 </head>
 	<body>
         <section class="loading">
@@ -16,21 +19,7 @@
                 <img src="/icon/icon.svg" alt="loading icon">
             </div>
         </section>
-        <section class="header">
-            <div class="navbar">
-                <div class="grid">
-                    <a href="/home" class="links navitems"><li>Home</li></a>
-                    <a href="/home/dashboard" class="links navitems"><li>Dashboard</li></a>
-                    <a href="/vip/viplogin" class="links navitems"><li>VIP</li></a>
-                    <li class="navitems navmain">HAPPY <span><img src="/icon/residential.svg" alt="residential logo"></span> HOME</li>
-                    <a href="/message" class="links navitems"><li>Chat</li></a>
-                    <a href="/aboutus" class="links navitems"><li>About Us</li></a>
-                    <a href="/logout" class="links navitems"><li>Log Out</li></a>
-                </div>
-            </div>
-            <hr class="headerline" size="0">
-        </section>
-
+  <%- include("nav") -%>
 		<div class="join-container formsection" style="margin-top: -1%; margin-bottom: -0.2%;">
 			<header class="join-header">
         <h1><span><img src="/icon/chat.svg" alt="chat logo"></span>Chat Room<span><img src="/icon/chat.svg" alt="chat logo"></span></h1>
@@ -62,6 +51,9 @@
                         <button type="submit" formaction="/add" formmethod="POST" class="btn">Join Room</button>
                         <button type="submit" formaction="/chat" formmethod="GET" class="btn">Join Chat</button>
                     </div>
+                    <div class="elementbtn chatbuttongrid" style="width: 145%; margin-top: 1%;">
+                        <button type="button" onclick="alertify.confirm('How To Use(One time process)', 'If you are buyer then you must create room with the room id given to owner through SMS and then join the room But If you are seller then you must got the SMS with unique room id enter it and then direct join the room And at last join chat and MAKE THE DEAL', function(){ alertify.error('OK') }, function(){ alertify.error('Cancel')});" class="btn">How To Use</button>
+                    </div>
                 </form>
 			</main>
         </div>
@@ -76,7 +68,9 @@
                 $(".loader").fadeOut("slow");
             });
             $('input').attr('autocomplete', 'off');
+            $("document").ready( function () {
+                alertify.error('<%=welmsg%>');
+            }); 
         </script>
-    
 	</body>
 </html>

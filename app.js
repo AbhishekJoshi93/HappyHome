@@ -19,6 +19,8 @@ const {
 } = require('./utils/users');
 const moment = require('moment');
 
+require('events').EventEmitter.prototype._maxListeners = 0;
+
 const app = express();
 
 const accountSid = process.env.ACCOUNT_SID;
@@ -140,11 +142,22 @@ const messageSchema = new mongoose.Schema({
     chat: [chatSchema]
 });
 
+const metaSchema = new mongoose.Schema({
+    username: {type:String,default:Date.now()},
+    totaluser: {type:Number,default:0},
+    totalpropertysoldlist: {type:Number,default:0},
+    totalpropertyleaselist: {type:Number,default:0},
+    totalpropertysold: {type:Number,default:0},
+    totalpropertylease: {type:Number,default:0},
+    totalfeedback: {type:Number,default:0}
+});
+
 
 userSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
 const Msg = new mongoose.model("Msg", messageSchema);
+const Meta = new mongoose.model("Meta", metaSchema);
 
 passport.use(User.createStrategy());
 
@@ -169,7 +182,7 @@ app.post("/login", (req,res) => {
         if(err){
             res.render(__dirname + "/views/login.ejs", {err:err.name});
         }else{
-                passport.authenticate("local")(req,res, function(){
+                passport.authenticate("local",{failureRedirect:"/login"})(req,res, function(){
                     if(err){
                         console.log(err);
                     res.render(__dirname + "/views/login.ejs", {err:err.name});
@@ -189,11 +202,16 @@ app.get("/register", (req,res) => {
 app.post("/register", (req,res) => {
     User.register({username: req.body.username}, req.body.password, function(err,user) {
         if(err){
-            console.log(err.name);
-            // res.redirect("/register");
+            console.log(err);
             res.render(__dirname + "/views/register.ejs", {err:err.name});
         }else{
             passport.authenticate("local")(req,res, function(){
+
+                Meta.find({},function(err,result){
+                    result[0].totaluser++;
+                    result[0].save(function(){});
+                });
+
             res.render(__dirname + "/views/login.ejs", {err:"Enter Again"});
             });
         }
@@ -332,7 +350,15 @@ app.post("/home/sale", upload.single('imagepro'), (req,res) => {
             if(foundUser){
                 foundUser.saleproperty.push(bodydata);
                 foundUser.save(function(){
-                    res.redirect("/home");
+
+                    Meta.find({},function(err,result){
+                        result[0].totalpropertysoldlist++;
+                        result[0].save(function(){});
+                    });
+
+                    User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                        res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull Sale Property Listed"});
+                    });
                 });
             }
         }
@@ -387,7 +413,15 @@ app.post("/home/lease", upload.single('imagepro'), (req,res) => {
             if(foundUser){
                 foundUser.leaseproperty.push(bodydata);
                 foundUser.save(function(){
-                    res.redirect("/home");
+
+                    Meta.find({},function(err,result){
+                        result[0].totalpropertyleaselist++;
+                        result[0].save(function(){});
+                    });
+
+                    User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                        res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull Lease Property Listed"});
+                    });
                 });
             }
         }
@@ -414,14 +448,32 @@ app.post("/interest", (req,res) => {
             body: 'Hello I m interested in your listing on Happy Home. And for further meetings contact me with this room id in chat section => ' + req.body.roomid,
             to: '+91 ' + req.body.refid,
             from: process.env.PHONE_NO
-        }).then((message) => console.log(message.sid));
-        res.redirect("/home");
+        }).then((message) => console.log());
+        User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+            res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"SMS Is Send"});
+        });
     }else{
         res.redirect("/");
     }
 });
 
-app.get("/vip/viplogin",async (req,res) => {
+app.get("/vip/viplogin", (req,res) => {
+    if(req.isAuthenticated()){
+        User.findById(req.user.id,(err,resultcancel) => {
+            if(resultcancel.vipacc){
+                User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                    res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Already VIP Access"});
+                });
+            }else if(!resultcancel.vipacc){                
+                res.redirect("/vip/viplogin/for");
+            }
+        });
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.get("/vip/viplogin/for",async (req,res) => {
     if(req.isAuthenticated()){
         const paymentIntent = await stripe.paymentIntents.create({
             amount: 1099,
@@ -434,6 +486,16 @@ app.get("/vip/viplogin",async (req,res) => {
     }     
 });
 
+app.get("/home/unsuccessvip", (req,res) => {
+    if(req.isAuthenticated()){
+        User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+            res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Unsuccessfull VIP Access"});
+        });
+    }else{
+        res.redirect("/");
+    }
+});
+
 app.get("/home/successvip", (req,res) => {
     if(req.isAuthenticated()){
 
@@ -444,7 +506,9 @@ app.get("/home/successvip", (req,res) => {
                 if(foundUser){
                     foundUser.vipacc = true;
                     foundUser.save(function(){
-                        res.redirect("/home");
+                        User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                            res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull VIP Access"});
+                        });
                     });
                 }
             }
@@ -540,7 +604,7 @@ io.on('connection', socket => {
         
 app.get("/message", (req,res) => {
     if(req.isAuthenticated()){
-        res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: "EnterRoom"});  
+        res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: "EnterRoom",welmsg: "Welcome To Chat Room"});  
     }else{
         res.redirect("/");
     }
@@ -557,7 +621,7 @@ app.post("/message", (req,res) => {
                 console.log(err);
             }else{
                 if(ms){
-                    res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: req.body.room});
+                    res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: req.body.room,welmsg: "Room Created"});
                 }    
             }
         });
@@ -573,7 +637,7 @@ app.post("/add", (req,res) => {
                 console.log(err);
             }else{
                 if(foundRoom.length===0){
-                    res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: "NotFound"});
+                    res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: "NotFound",welmsg: "Room Not Found"});
                 }
                 else if(foundRoom){
                     foundRoom[0].users.push(req.body.username);
@@ -581,7 +645,7 @@ app.post("/add", (req,res) => {
                         if(err){
                             console.log(err);
                         }
-                            res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: req.body.room});
+                            res.render(__dirname + "/views/message.ejs",{email: req.user.username,roomid: req.body.room,welmsg: "Successfull Join Room"});
                     });
                 }
             }
@@ -594,6 +658,124 @@ app.post("/add", (req,res) => {
 app.get("/chat", (req,res) => {
     if(req.isAuthenticated()){
         res.render(__dirname + "/views/chat.ejs");  
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/deleteproperty", (req,res) => {
+    if(req.isAuthenticated()){
+        User.findById(req.user.id,function(err,foundUser){
+            if(err){
+                console.log(err);
+            }else{
+                if(foundUser){
+                    let i = 0;
+                    foundUser.saleproperty.forEach(function(element){
+                        const id = req.body.refid;
+                        if(element._id == id){
+                            foundUser.saleproperty.splice(i,1);
+                            i++;
+                        }
+                    });
+                    foundUser.save(function(){
+                        User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                            res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull Deleted"});
+                        });
+                    });
+                }
+            }
+        });
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/deletepropertylease", (req,res) => {
+    if(req.isAuthenticated()){
+        User.findById(req.user.id,function(err,foundUser){
+            if(err){
+                console.log(err);
+            }else{
+                if(foundUser){
+                    let i = 0;
+                    foundUser.leaseproperty.forEach(function(element){
+                        const id = req.body.refid;
+                        if(element._id == id){
+                            foundUser.leaseproperty.splice(i,1);
+                            i++;
+                        }
+                    });
+                    foundUser.save(function(){
+                        User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                            res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull Deleted"});
+                        });
+                    });
+                }
+            }
+        });
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/soldproperty", (req,res) => {
+    if(req.isAuthenticated()){
+        User.findById(req.user.id,function(err,foundUser){
+            if(err){
+                console.log(err);
+            }else{
+                if(foundUser){
+                    let i = 0;
+                    foundUser.saleproperty.forEach(function(element){
+                        const id = req.body.refid;
+                        if(element._id == id){
+                            foundUser.saleproperty.splice(i,1);
+                            i++;
+                        }
+                    });
+                    foundUser.save(function(){});
+                        Meta.find({},function(err,result){
+                            result[0].totalpropertysold++;
+                            result[0].save(function(){});
+                        });
+                        User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                            res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull Sold"});
+                        });
+                }
+            }
+        });
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/soldpropertylease", (req,res) => {
+    if(req.isAuthenticated()){
+        User.findById(req.user.id,function(err,foundUser){
+            if(err){
+                console.log(err);
+            }else{
+                if(foundUser){
+                    let i = 0;
+                    foundUser.leaseproperty.forEach(function(element){
+                        const id = req.body.refid;
+                        if(element._id == id){
+                            foundUser.leaseproperty.splice(i,1);
+                            i++;
+                        }
+                    });
+                    foundUser.save(function(){});
+                        Meta.find({},function(err,result){
+                            result[0].totalpropertylease++;
+                            result[0].save(function(){});
+                        });
+                        User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                            res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull Sold"});
+                        });
+                }
+            }
+        });
     }else{
         res.redirect("/");
     }

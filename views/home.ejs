@@ -8,12 +8,8 @@
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
-        <!-- JavaScript -->
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
-        <!-- CSS -->
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-        <!-- Default theme -->
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 </head>
 
@@ -23,22 +19,7 @@
             <img src="/icon/icon.svg" alt="loading icon">
         </div>
     </section>
-    <section class="header">
-        <div class="navbar">
-            <div class="grid">
-                <a href="/home" class="links navitems"><li>Home</li></a>
-                <a href="/home/dashboard" class="links navitems"><li>Dashboard</li></a>
-                <a href="/vip/viplogin" class="links navitems"><li>VIP</li></a>
-                <li class="navitems navmain">HAPPY <span><img src="/icon/residential.svg" alt="residential logo"></span> HOME</li>
-                <a href="/message" class="links navitems"><li>Chat</li></a>
-                <a href="/aboutus" class="links navitems"><li>About Us</li></a>
-                <a href="/logout" class="links navitems"><li>Log Out</li></a>
-            </div>
-        </div>
-        <hr class="headerline" size="0">
-    </section>
-            
-
+  <%- include("nav") -%>
     <section class="homesearch">
         <div class="buysection">
             <div class="buyleft">
@@ -53,7 +34,7 @@
                         <p>Here you can buy your dream home from searching through our custom search and filters and
                             then negotiation with owner through our chatting feature proceed by clicking button down
                             here.</p>
-                        <a href="/home/buy" class="links"><button>Buy</button></a>
+                        <a href="/home/buy" class="links"><button onfocus="alertify.confirm('Buy Page', 'You can find property with your choice for buy', function(){ alertify.error('Click One More Time') }, function(){ alertify.error('Cancel')});">Buy</button></a>
                     </div>
                 </div>
                 <div class="buyrenthome">
@@ -64,7 +45,7 @@
                         <p>Here you can buy your dream home for rent from our custom search feature and then doing
                             negotiation with the owner of rent through chatting feature proceed by clicking button down
                             here.</p>
-                        <a href="/home/rent" class="links"><button>Rent</button></a>
+                        <a href="/home/rent" class="links"><button onfocus="alertify.confirm('Rent Page', 'You can find property with your choice for rent', function(){ alertify.error('Click One More Time') }, function(){ alertify.error('Cancel')});">Rent</button></a>
                     </div>
                 </div>
             </div>
@@ -82,7 +63,7 @@
                         <p>Here you can place your listing for selling your own property by using custom types and
                             amenities of your property and then after doing chatting you can sell other dream home to
                             them proceed by clicking button down here.</p>
-                        <a href="/home/sale" class="links"><button>Sale</button></a>
+                        <a href="/home/sale" class="links"><button onfocus="alertify.confirm('Sale Page', 'You can place your property with your details for sale', function(){ alertify.error('Click One More Time') }, function(){ alertify.error('Cancel')});">Sale</button></a>
                     </div>
                 </div>
                 <div class="sellrenthome">
@@ -93,7 +74,7 @@
                         <p>Here you can place your listing for lease your property with custom amenities of your home
                             and then after doing chatting with the buyer through our chatting feature you can lease your
                             place proceed by clicking button down here.</p>
-                        <a href="/home/lease" class="links"><button>Lease</button></a>
+                        <a href="/home/lease" class="links"><button onfocus="alertify.confirm('Lease Page', 'You can place your property with your details for lease', function(){ alertify.error('Click One More Time') }, function(){ alertify.error('Cancel')});">Lease</button></a>
                     </div>
                 </div>
             </div>
@@ -402,7 +383,7 @@
         alertify.error('<%=msg%>');
     }); 
 </script>
-    <!-- Start of LiveChat (www.livechatinc.com) code -->
+
 <script type="text/javascript">
     window.__lc = window.__lc || {};
     window.__lc.license = 11909919;
@@ -416,9 +397,7 @@
   <a href="https://www.livechatinc.com/chat-with/11909919/" rel="nofollow">Chat with us</a>,
   powered by <a href="https://www.livechatinc.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a>
   </noscript>
-  <!-- End of LiveChat code -->
   
-
 </body>
 
 </html>
