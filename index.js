@@ -42,7 +42,7 @@ var storage = multer.diskStorage({
    
 var upload = multer({ storage: storage });
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "public"));
 app.set("view engine","ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -816,7 +816,6 @@ let port = process.env.PORT;
 if(port == null || port == ""){
     port = 3000;
 }
-server.listen(port);
 
 server.listen(port, () => {
     console.log("Website is running");
