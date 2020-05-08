@@ -23,10 +23,8 @@ require('events').EventEmitter.prototype._maxListeners = 0;
 
 const app = express();
 
-const accountSid = process.env.ACCOUNT_SID;
-const authToken = process.env.AUTH_TOKEN;   
 const twilio = require('twilio');
-const client = new twilio(accountSid, authToken);
+const client = new twilio('AC0c395964073c8ef0a1f933549a7d9be7', '9a2887c8d8cc4f7a39957e7eb61b1ebb');
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 const botName = 'Chat Room Bot';
@@ -447,7 +445,7 @@ app.post("/interest", (req,res) => {
         client.messages.create({
             body: 'Hello I m interested in your listing on Happy Home. And for further meetings contact me with this room id in chat section => ' + req.body.roomid,
             to: '+91 ' + req.body.refid,
-            from: process.env.PHONE_NO
+            from: +13214504842
         }).then((message) => console.log());
         User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
             res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"SMS Is Send"});
