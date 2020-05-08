@@ -16,4 +16,11 @@
             <img src="/image/home.jfif" alt="home image">
         </div>
     </section>
+    <script>
+$("document").ready( function () {
+                alertify.confirm('How To Use(For Buyer)', 'If you are a buyer then goto buy or rent section then find your dream house and then send room id to property owner and then chat with them and final the deal.', function(){ alertify.error('OK') }, function(){ alertify.error('Cancel')});
+                alertify.confirm('How To Use(For Seller)', 'If you are a seller then goto sale or lease section then place the property and wait for interesed people and then contact then in chat section and make the deal.', function(){ alertify.error('OK') }, function(){ alertify.error('Cancel')});
+
+            }); 
+    </script>
 <%- include("footer") -%>
