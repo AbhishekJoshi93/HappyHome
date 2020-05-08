@@ -811,6 +811,13 @@ app.post("/rating", (req,res) => {
     }
 });
 
-server.listen("3000", () => {
-    console.log("Server is serving");
+let port = process.env.PORT; 
+
+if(port == null || port == ""){
+    port = 3000;
+}
+server.listen(port);
+
+server.listen(port, () => {
+    console.log("Website is running");
 });
