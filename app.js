@@ -56,7 +56,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@happyhomedb-35kqn.mongodb.net/HappyHomeDB`, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
 const leasepropertySchema = new mongoose.Schema({
     personname: String,
@@ -144,7 +144,6 @@ const messageSchema = new mongoose.Schema({
 });
 
 const metaSchema = new mongoose.Schema({
-    username: {type:String,default:Date.now()},
     totaluser: {type:Number,default:0},
     totalpropertysoldlist: {type:Number,default:0},
     totalpropertyleaselist: {type:Number,default:0},
@@ -183,10 +182,10 @@ app.post("/login", (req,res) => {
         if(err){
             res.render(__dirname + "/views/login.ejs", {err:err.name});
         }else{
-                passport.authenticate("local",{failureRedirect:"/login"})(req,res, function(){
+                passport.authenticate("local",{failureRedirect:"/register"})(req,res, function(){
                     if(err){
                         console.log(err);
-                    res.render(__dirname + "/views/login.ejs", {err:err.name});
+                        res.render(__dirname + "/views/login.ejs", {err:err.name});
                     }
                 User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
                     res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Successfull Login"});
