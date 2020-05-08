@@ -201,4 +201,12 @@
         </div>
     </section>
 <%- include("bar") -%>
+<script>
+    var slider = document.getElementById("eleduration");
+var output = document.getElementById("eledurationout");
+output.innerHTML = slider.value;
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
 <%- include("footer") -%>

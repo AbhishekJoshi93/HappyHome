@@ -1,0 +1,123 @@
+<%- include("header") -%>
+<%- include("nav") -%>
+
+    <section class="aboutnumber">
+        <h1>Website Moto</h1>
+        <p>“A successful website does three things:
+            It attracts the right kinds of visitors.
+            Guides them to the main services or product you offer.
+            Collect Contact details for future ongoing relation.”</p>
+        <h1>Numbers Regarding Happy Home Family</h1>
+        <div class="aboutgrid">
+            <div class="aboutinnergrid">
+                <pre><img src="/icon/chatuser.svg" alt="icon"></pre>
+                <h3>Users</h3>
+                <p><span class="count"><%=obj.totaluser%></span></p>
+            </div>
+            <div class="aboutinnergrid">
+                <pre><img src="/icon/buy.svg" alt="icon"></pre>
+                <h3>Bought</h3>
+                <p><span class="count"><%=obj.totalpropertysold%></span></p>
+            </div>
+            <div class="aboutinnergrid">
+                <pre><img src="/icon/clubhouse.svg" alt="icon"></pre>
+                <h3>For Sale</h3>
+                <p><span class="count"><%=obj.totalpropertysoldlist%></span></p>
+            </div>
+            <div class="aboutinnergrid">
+                <pre><img src="/icon/type.svg" alt="icon"></pre>
+                <h3>For Lease</h3>
+                <p><span class="count"><%=obj.totalpropertyleaselist%></span></p>
+            </div>
+            <div class="aboutinnergrid">
+                <pre><img src="/icon/rent.svg" alt="icon"></pre>
+                <h3>Rented</h3>
+                <p><span class="count"><%=obj.totalpropertylease%></span></p>
+            </div>
+            <div class="aboutinnergrid">
+                <pre><img src="/icon/chat.svg" alt="icon"></pre>
+                <h3>Feedbacks</h3>
+                <p><span class="count"><%=obj.totalfeedback%></span></p>
+            </div>
+        </div>
+
+        <h1 style="margin: 3% auto;">Meet Our Team Members</h1>
+        <section class="cards">
+            <div class="card1">
+                <div class="maincard">
+                    <div class="cardimg">
+                        <pre><img src="/image/abhi.jpg" alt="abhi"></pre>
+                    </div>
+                    <div class="cardcontent">
+                        <div class="cardcontentmain">
+                            <h1>Abhishek Joshi</h1>
+                            <h4>Web Developer</h4>
+                        </div>
+                        <div class="cardcontentlinks">
+                            <pre><a href="https://github.com/AbhishekJoshi93" class="links"><span><img src="/icon/github.svg" alt="icon"></span></a></pre>
+                            <pre><a href="https://www.linkedin.com/in/abhishek-joshi-132a5a182/" class="links"><span><img src="/icon/linkedin.svg" alt="icon"></span></a></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card2">
+                <div class="maincard">
+                    <div class="cardimg">
+                        <pre><img src="/image/nihar.jpeg" alt="nihar"></pre>
+                    </div>
+                    <div class="cardcontent">
+                        <div class="cardcontentmain">
+                            <h1>Nihar Javiya</h1>
+                            <h4>Web Developer</h4>
+                        </div>
+                        <div class="cardcontentlinks">
+                            <pre><a href="https://github.com/nihar3012" class="links"><span><img src="/icon/github.svg" alt="icon"></span></a></pre>
+                            <pre><a href="https://www.linkedin.com/in/nihar-javiya-7891a919a/" class="links"><span><img src="/icon/linkedin.svg" alt="icon"></span></a></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <h1>Leave Feedback For Our Developer</h1>
+        <div class="formsection">
+            <div class="element">
+                <form action="/rating" method="POST">
+                    <h3>Feedback <span><img src="/icon/dealer.svg" alt="dealer logo"></h3>
+                        <input type="range" name="ratingpro" id="eleduration" min="1" max="5">
+                        <span id="eledurationout"></span>                        
+                        <br>
+                        <pre>* Feedback scale is on 1 to 5</pre>
+                        <div class="elementbtn" style="margin: -3% 0 -3% 0;">
+                            <button type="submit" class="btn">Submit</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<%- include("bar") -%>
+
+    <script>
+        $('.count').each(function () {
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+    </script>
+    <script>
+        var slider = document.getElementById("eleduration");
+    var output = document.getElementById("eledurationout");
+    output.innerHTML = slider.value;
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+    </script>
+
+<%- include("footer") -%>

@@ -124,6 +124,7 @@ const salepropertySchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     email: String, 
     password: String,
+    rating: { type: Number, default: 0 },
     vipacc: { type: Boolean, default: false },
     saleproperty: [salepropertySchema],
     leaseproperty: [leasepropertySchema],
@@ -775,6 +776,36 @@ app.post("/soldpropertylease", (req,res) => {
                         });
                 }
             }
+        });
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.get("/aboutus", (req,res) => {
+    if(req.isAuthenticated()){
+        Meta.find({},function(err,resullt){
+            res.render(__dirname + "/views/aboutus.ejs",{obj: resullt[0]});
+        });
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/rating", (req,res) => {
+    if(req.isAuthenticated()){
+
+        User.findById(req.user.id,function(err,founduser){
+            founduser.rating = req.body.ratingpro;
+            founduser.save(function(err){
+                Meta.find({},function(err,result){
+                    result[0].totalfeedback++;
+                    result[0].save(function(){});
+                });
+                User.find({vipacc: "true"},'saleproperty leaseproperty',(err,result) => {
+                    res.render(__dirname + "/views/home.ejs",{viplist: result,msg:"Thanks For Feedback"});
+                });
+            });
         });
     }else{
         res.redirect("/");
