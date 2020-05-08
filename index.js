@@ -54,7 +54,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@happyhomedb-35kqn.mongodb.net/HappyHomeDB`, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb+srv://abhijoshi:abhijoshi@happyhomedb-35kqn.mongodb.net/HappyHomeDB`, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
 const leasepropertySchema = new mongoose.Schema({
     personname: String,
