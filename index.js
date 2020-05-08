@@ -8,6 +8,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const multer  = require('multer');
+var upload = multer({ dest: 'public/uploads/' });
 const stripe = require('stripe')('sk_test_AbkZh2jDodAGhnLeivoXX61A005bFSQTYJ');
 const dotenv = require('dotenv').config();
 const formatMessage = require('./utils/messages');
@@ -28,17 +29,6 @@ const client = new twilio('AC0c395964073c8ef0a1f933549a7d9be7', '9a2887c8d8cc4f7
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 const botName = 'Chat Room Bot';
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '/public/uploads');
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now());
-    }
-  });
-   
-var upload = multer({ storage: storage });
 
 app.use(express.static(__dirname + "/public"));
 app.set("view engine","ejs");
