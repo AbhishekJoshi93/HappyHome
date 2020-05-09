@@ -8,7 +8,20 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const multer  = require('multer');
-var upload = multer({ dest: 'public/uploads/' });
+const path = require('path');
+// var upload = multer({ dest: 'public/uploads/' });
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now()+path.extname(file.originalname));
+    }
+  });
+   
+var upload = multer({ storage: storage });
+
 const stripe = require('stripe')('sk_test_AbkZh2jDodAGhnLeivoXX61A005bFSQTYJ');
 const dotenv = require('dotenv').config();
 const formatMessage = require('./utils/messages');
