@@ -11,25 +11,14 @@ const multer  = require('multer');
 const path = require('path');
 // var upload = multer({ dest: 'public/uploads/' });
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'public/uploads');
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now()+path.extname(file.originalname));
-    }
-  });
-   
-var upload = multer({ storage: storage });
-
 const stripe = require('stripe')('sk_test_AbkZh2jDodAGhnLeivoXX61A005bFSQTYJ');
 const dotenv = require('dotenv').config();
 const formatMessage = require('./utils/messages');
 const {
-  userJoin,
-  getCurrentUser,
-  userLeave,
-  getRoomUsers
+    userJoin,
+    getCurrentUser,
+    userLeave,
+    getRoomUsers
 } = require('./utils/users');
 const moment = require('moment');
 
@@ -47,6 +36,19 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine","ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+
+app.use("/uploads", express.static(__dirname+'/public/uploads'));
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now()+path.extname(file.originalname));
+    }
+  });
+   
+var upload = multer({ storage: storage });
 
 app.use(session({
     secret: "Secret for password.",
