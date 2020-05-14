@@ -28,6 +28,7 @@
     "passport-local-mongoose": "^6.0.1",
     "path": "^0.12.7",
     "poper": "^0.1.1",
+    "request": "^2.88.2",
     "socket.io": "^2.3.0",
     "stripe": "^8.49.0",
     "twilio": "^3.42.2"
