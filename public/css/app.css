@@ -926,3 +926,48 @@ input{
         grid-template-columns: repeat(1,1fr);
     }
 }
+
+.coronatracker{
+    font-family: 'EB Garamond',sans-serif;
+    font-weight: 600;
+    font-size: x-large;
+    text-align: center;
+    border: 2px solid #000;
+    border-radius: 20px;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.coronatrackermain{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    text-align: center;
+}
+
+.coronatrackermain p{
+    font-family: 'EB Garamond',sans-serif;
+    font-weight: 500;
+    font-size: 125%;
+}
+
+.ctbox{
+    box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+    margin: 10% 20%;
+    border-radius: 20px;
+    padding: 2%;
+}
+
+.ctboxn{
+    box-shadow: inset 9px 9px 16px rgb(163,177,198,0.6), inset -9px -9px 16px rgba(255,255,255, 0.8);
+    margin-top: 20%;
+    border-radius: 100px;
+    padding: 2%;
+}
+
+.coronaheader h1{
+    text-align: center;
+}
+
+.coronasearch{
+    text-align: center;
+}

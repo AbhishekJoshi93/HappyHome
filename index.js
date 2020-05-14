@@ -814,6 +814,61 @@ app.post("/rating", (req,res) => {
     }
 });
 
+app.get("/tracker", (req,res) => {
+    if(req.isAuthenticated()){
+        var request = require("request");
+
+        var options = {
+        method: 'GET',
+        url: 'https://covid-19-data.p.rapidapi.com/totals',
+        qs: {format: 'json'},
+        headers: {
+            'x-rapidapi-host': 'covid-19-data.p.rapidapi.com',
+            'x-rapidapi-key': 'bd6f2ebe6bmshafed87d301ea892p15a15cjsna0529db074ac',
+            useQueryString: true
+        }
+        };
+
+        
+        request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            var datajson = JSON.parse(body);
+            res.render(__dirname + "/views/corona.ejs",{name: "World Wide",obj: datajson});
+        });
+
+    }else{
+        res.redirect("/");
+    }
+});
+
+app.post("/trackercountry", (req,res) => {
+    if(req.isAuthenticated()){
+        var request = require("request");
+
+        var options = {
+        method: 'GET',
+        url: 'https://covid-19-data.p.rapidapi.com/country',
+        qs: {format: 'json', name: req.body.countryelect},
+        headers: {
+            'x-rapidapi-host': 'covid-19-data.p.rapidapi.com',
+            'x-rapidapi-key': 'bd6f2ebe6bmshafed87d301ea892p15a15cjsna0529db074ac',
+            useQueryString: true
+        }
+        };
+
+        request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            var datajson = JSON.parse(body);
+            res.render(__dirname + "/views/corona.ejs",{name: req.body.countryelect,obj: datajson});
+        });
+
+    }else{
+        res.redirect("/");
+    }
+});
+
 let port = process.env.PORT; 
 
 if(port == null || port == ""){

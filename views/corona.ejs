@@ -1,0 +1,69 @@
+<%- include("header") -%>
+<%- include("nav") -%>
+    <div class="coronaheader">
+        <h1><%=name%> Stats</h1>
+    </div>
+    <div class="coronatrackermain">
+        <div class="tb1">
+            <div class="ctbox">
+                <p>Total</p>
+                <div class="ctboxn">
+                    <p><span class="count"><%=obj[0].confirmed%></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="tb2">
+            <div class="ctbox">
+                <p>Recovered</p>
+                <div class="ctboxn">
+                    <p><span class="count"><%=obj[0].recovered%></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="tb3">
+            <div class="ctbox">
+                <p>Critical</p>
+                <div class="ctboxn">
+                    <p><span class="count"><%=obj[0].critical%></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="tb4">
+            <div class="ctbox">
+                <p>Death</p>
+                <div class="ctboxn">
+                    <p><span class="count"><%=obj[0].deaths%></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="coronaheader">
+        <h1>Search Your Country</h1>
+    </div>
+    <div class="coronasearch">
+        <div class="formsection">
+            <div class="element">
+                <form action="/trackercountry" method="POST">
+                    <input type="text" name="countryelect" id="idcountryelect" placeholder="eg. india" required>
+                    <div class="elementbtn">
+                        <button type="submit" class="btn" style="margin-top: -0.5%; margin-bottom: -0.1%;">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.count').each(function () {
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+    </script>
+<%- include("bar") -%>
+<%- include("footer") -%>
