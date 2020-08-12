@@ -26,8 +26,7 @@ require('events').EventEmitter.prototype._maxListeners = 0;
 
 const app = express();
 
-const twilio = require('twilio');
-const client = new twilio('AC0c395964073c8ef0a1f933549a7d9be7', '9a2887c8d8cc4f7a39957e7eb61b1ebb');
+const client = require('twilio')('AC0c395964073c8ef0a1f933549a7d9be7', '9578e8fa31be3b41f8c0d4acd555ed05');
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 const botName = 'Chat Room Bot';
